@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>게시글 작성 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Quill 텍스트 편집기 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css"
+    rel="stylesheet"
+  >
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <!-- 로그아웃 -->
+      <button
+        type="button"
+        class="logout-button"
+        onclick="
+          if (confirm('로그아웃하시겠습니까?')) {
+            location.href='../index.html';
+          }
+        "
+      >
+        로그아웃
+      </button>
+
+    </div>
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="../index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         게시글 작성 전체 영역
+    ========================== -->
+    <section class="write-container">
+
+      <!-- =========================
+           글쓰기 상단
+      ========================== -->
+      <div class="write-header">
+
+        <h2>
+          글쓰기
+        </h2>
+
+        <div class="write-actions">
+
+          <!-- 취소 -->
+          <button
+            type="button"
+            onclick="location.href='list.html'"
+          >
+            취소
+          </button>
+
+          <!-- 등록 -->
+          <button
+            type="button"
+            onclick="registerPost()"
+          >
+            등록
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           게시글 작성 폼
+      ========================== -->
+      <form id="post-form">
+
+
+        <!-- =========================
+             카테고리
+        ========================== -->
+        <div class="write-group">
+
+          <label for="category">
+            카테고리
+          </label>
+
+          <select
+            id="category"
+            name="category"
+            required
+          >
+
+            <option value="">
+              카테고리 선택
+            </option>
+
+            <option value="review">
+              영화리뷰
+            </option>
+
+            <option value="recommend">
+              영화추천
+            </option>
+
+            <option value="free">
+              자유토론
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- =========================
+             제목
+        ========================== -->
+        <div class="write-group">
+
+          <label for="title">
+            제목
+          </label>
+
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="title-input"
+            placeholder="제목을 입력하세요"
+            required
+          >
+
+        </div>
+
+
+        <!-- =========================
+             영화 첨부
+        ========================== -->
+        <div class="write-group">
+
+          <label>
+            영화 첨부
+          </label>
+
+
+          <!-- 영화 검색 -->
+          <div class="movie-search">
+
+            <input
+              type="text"
+              id="movie-search"
+              name="movieKeyword"
+              placeholder="영화 제목을 검색하세요"
+            >
+
+            <button type="button">
+              영화 검색
+            </button>
+
+          </div>
+
+
+          <!-- =========================
+               영화 검색 결과
+          ========================== -->
+
+          <!--
+            추후 영화 검색 결과가
+            이 영역에 표시됨
+
+            예시 구조
+
+            <div class="movie-search-result">
+
+              <button
+                type="button"
+                class="movie-result-item"
+              >
+                인셉션 (2010)
+              </button>
+
+              <button
+                type="button"
+                class="movie-result-item"
+              >
+                인터스텔라 (2014)
+              </button>
+
+            </div>
+          -->
+
+
+          <!-- =========================
+               선택된 영화
+          ========================== -->
+
+          <!--
+            화면 확인용 임시 데이터
+
+            실제 구현에서는
+            영화 검색 후 선택했을 때 표시
+          -->
+          <div class="selected-movie">
+
+            <span>
+              인셉션 (2010)
+            </span>
+
+            <!-- 첨부 영화 제거 -->
+            <button
+              type="button"
+              title="첨부 영화 제거"
+            >
+              X
+            </button>
+
+          </div>
+
+
+          <!-- 추후 백엔드 전달용 영화 번호 -->
+          <input
+            type="hidden"
+            id="movie-id"
+            name="movieId"
+          >
+
+        </div>
+
+
+        <!-- =========================
+             본문
+        ========================== -->
+        <div class="write-group">
+
+          <label>
+            내용
+          </label>
+
+
+          <!-- Quill 텍스트 편집기 -->
+          <div id="post-editor"></div>
+
+
+          <!--
+            Quill에서 작성한 내용을
+            추후 백엔드로 전달할 영역
+          -->
+          <input
+            type="hidden"
+            id="post-content"
+            name="content"
+          >
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       Quill 텍스트 편집기
+  ========================== -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+
+
+  <script>
+
+    // =========================
+    // Quill 텍스트 편집기 생성
+    // =========================
+
+    const quill = new Quill("#post-editor", {
+
+      theme: "snow",
+
+      placeholder:
+        "영화에 대한 이야기를 자유롭게 작성해보세요.",
+
+      modules: {
+
+        toolbar: [
+
+          // 제목 크기
+          [
+            {
+              header: [
+                1,
+                2,
+                3,
+                false
+              ]
+            }
+          ],
+
+          // 글꼴
+          [
+            {
+              font: []
+            }
+          ],
+
+          // 글자 크기
+          [
+            {
+              size: []
+            }
+          ],
+
+          // 글자 서식
+          [
+            "bold",
+            "italic",
+            "underline",
+            "strike"
+          ],
+
+          // 글자색 / 배경색
+          [
+            {
+              color: []
+            },
+            {
+              background: []
+            }
+          ],
+
+          // 정렬
+          [
+            {
+              align: []
+            }
+          ],
+
+          // 목록
+          [
+            {
+              list: "ordered"
+            },
+            {
+              list: "bullet"
+            }
+          ],
+
+          // 인용
+          [
+            "blockquote"
+          ],
+
+          // 링크 / 이미지
+          [
+            "link",
+            "image"
+          ],
+
+          // 서식 제거
+          [
+            "clean"
+          ]
+
+        ]
+
+      }
+
+    });
+
+
+    // =========================
+    // 게시글 등록
+    // =========================
+
+    function registerPost() {
+
+      // 카테고리
+      const category =
+        document.querySelector("#category").value;
+
+      // 제목
+      const title =
+        document.querySelector("#title").value.trim();
+
+      // Quill 내용
+      const editorContent =
+        quill.root.innerHTML;
+
+      // 실제 텍스트
+      const editorText =
+        quill.getText().trim();
+
+
+      // 카테고리 확인
+      if (category === "") {
+
+        alert("카테고리를 선택하세요.");
+
+        return;
+
+      }
+
+
+      // 제목 확인
+      if (title === "") {
+
+        alert("제목을 입력하세요.");
+
+        return;
+
+      }
+
+
+      // 내용 확인
+      if (editorText === "") {
+
+        alert("내용을 입력하세요.");
+
+        return;
+
+      }
+
+
+      // Quill 내용을 hidden input에 저장
+      document.querySelector("#post-content").value =
+        editorContent;
+
+
+      /*
+        추후 Java 백엔드 연동
+
+        전달할 값
+
+        category
+        title
+        movieId
+        content
+
+        게시글 등록
+              ↓
+        Java 백엔드
+              ↓
+        Oracle INSERT
+              ↓
+        등록 성공
+              ↓
+        list.html
+      */
+
+
+      // 현재 프론트 화면 동작 확인용
+      if (confirm("게시글을 등록하시겠습니까?")) {
+
+        location.href = "list.html";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>

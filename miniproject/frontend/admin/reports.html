@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>신고 관리 | CINEHUB ADMIN</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- 홈 이동 -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB ADMIN</a>
+    </h1>
+  </header>
+
+  <main>
+
+    <div class="admin-container">
+
+      <!-- 관리자 메뉴 -->
+      <nav class="admin-menu">
+        <a href="dashboard.html">대시보드</a>
+        <a href="users.html">회원 관리</a>
+        <a href="reports.html">신고 관리</a>
+        <a href="boards.html">게시판 관리</a>
+        <a href="notices.html">공지사항 관리</a>
+        <div class="admin-logout">
+          <button
+            type="button"
+            onclick="if (confirm('로그아웃하시겠습니까?')) {
+                location.href='../index.html';}">
+            로그아웃
+      </nav>
+
+      <!-- 신고 관리 영역 -->
+      <section class="admin-content">
+
+        <h2>신고 관리</h2>
+
+        <!-- 신고 필터 -->
+        <div class="report-filter">
+
+          <!-- 처리 상태 -->
+          <select name="status">
+            <option value="">전체 상태</option>
+            <option value="pending">대기</option>
+            <option value="reviewed">검토중</option>
+            <option value="resolved">처리완료</option>
+            <option value="rejected">반려</option>
+          </select>
+
+          <!-- 신고 대상 -->
+          <select name="targetType">
+            <option value="">전체 유형</option>
+            <option value="post">게시글</option>
+            <option value="comment">댓글</option>
+            <option value="user">회원</option>
+          </select>
+
+          <button type="button">
+            조회
+          </button>
+
+        </div>
+
+        <!-- 신고 목록 -->
+        <section class="report-list">
+
+          <!-- 신고 1 -->
+          <div class="report-item">
+
+            <div class="report-info">
+              <strong>#102</strong>
+              <span>게시글</span>
+              <span>처리대기</span>
+            </div>
+
+            <p>
+              스팸 광고성 게시글입니다.
+            </p>
+
+            <p>
+              신고 사유 : 홍보
+            </p>
+
+            <div class="report-actions">
+              <button type="button">
+                블라인드
+              </button>
+
+              <button type="button">
+                반려
+              </button>
+            </div>
+
+          </div>
+
+          <!-- 신고 2 -->
+          <div class="report-item">
+
+            <div class="report-info">
+              <strong>#101</strong>
+              <span>댓글</span>
+              <span>처리대기</span>
+            </div>
+
+            <p>
+              욕설 및 비방 댓글입니다.
+            </p>
+
+            <p>
+              신고 사유 : 욕설
+            </p>
+
+            <div class="report-actions">
+              <button type="button">
+                블라인드
+              </button>
+
+              <button type="button">
+                반려
+              </button>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- 페이징 -->
+        <div class="pagination">
+          <a href="#">이전</a>
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">다음</a>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

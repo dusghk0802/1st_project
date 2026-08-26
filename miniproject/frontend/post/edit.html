@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>게시글 수정 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Quill 텍스트 편집기 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css"
+    rel="stylesheet"
+  >
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <button
+        type="button"
+        class="logout-button"
+        onclick="
+          if (confirm('로그아웃하시겠습니까?')) {
+            location.href='../index.html';
+          }
+        "
+      >
+        로그아웃
+      </button>
+
+    </div>
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="../index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         게시글 수정 전체 영역
+    ========================== -->
+    <section class="write-container">
+
+      <!-- 게시글 수정 상단 -->
+      <div class="write-header">
+
+        <h2>
+          게시글 수정
+        </h2>
+
+        <div class="write-actions">
+
+          <!-- 취소 -->
+          <button
+            type="button"
+            onclick="location.href='detail.html'"
+          >
+            취소
+          </button>
+
+          <!-- 수정 완료 -->
+          <button
+            type="button"
+            onclick="
+              if (confirm('수정 완료하시겠습니까?')) {
+                location.href='list.html';
+              }
+            "
+          >
+            수정 완료
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           게시글 수정 폼
+      ========================== -->
+      <form id="post-edit-form">
+
+        <!--
+          화면 확인용 임시 데이터
+
+          추후 Java 백엔드 + Oracle DB 연동 시
+          기존 게시글 데이터를 조회하여 표시
+        -->
+
+
+        <!-- =========================
+             카테고리
+        ========================== -->
+        <div class="write-group">
+
+          <label for="category">
+            카테고리
+          </label>
+
+          <select
+            id="category"
+            name="category"
+            required
+          >
+
+            <option
+              value="review"
+              selected
+            >
+              영화리뷰
+            </option>
+
+            <option value="recommend">
+              영화추천
+            </option>
+
+            <option value="free">
+              자유토론
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- =========================
+             제목
+        ========================== -->
+        <div class="write-group">
+
+          <label for="title">
+            제목
+          </label>
+
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="title-input"
+            value="엔딩 팽이 씬에 대한 3가지 해석"
+            required
+          >
+
+        </div>
+
+
+        <!-- =========================
+             영화 첨부
+        ========================== -->
+        <div class="write-group">
+
+          <h3>
+            영화 첨부
+          </h3>
+
+
+          <!-- 영화 검색 -->
+          <div class="movie-search">
+
+            <input
+              type="text"
+              id="movie-search"
+              name="movieKeyword"
+              placeholder="영화 제목을 검색하세요"
+            >
+
+            <button type="button">
+              영화 검색
+            </button>
+
+          </div>
+
+
+          <!-- =========================
+               영화 검색 결과
+          ========================== -->
+
+          <!--
+            추후 영화 검색 후
+            검색 결과가 이 영역에 표시됨
+
+            아래 코드는 화면 구조 확인용 예시
+          -->
+
+          <!--
+          <div class="movie-search-result">
+
+            <button
+              type="button"
+              class="movie-result-item"
+            >
+              인셉션 (2010)
+            </button>
+
+            <button
+              type="button"
+              class="movie-result-item"
+            >
+              인터스텔라 (2014)
+            </button>
+
+          </div>
+          -->
+
+
+          <!-- =========================
+               선택된 영화
+          ========================== -->
+
+          <!--
+            수정 페이지이므로 기존 게시글에
+            영화가 첨부되어 있다는 가정의 예시 데이터
+
+            추후 Java 백엔드 + Oracle DB 연동 시
+            실제 게시글에 연결된 영화 데이터로 변경
+          -->
+          <div class="selected-movie">
+
+            <span>
+              인셉션 (2010)
+            </span>
+
+            <!-- 첨부 영화 취소 -->
+            <button
+              type="button"
+              aria-label="첨부 영화 제거"
+            >
+              x
+            </button>
+
+          </div>
+
+
+          <!--
+            추후 백엔드로 전달할 영화 번호
+
+            실제 연동 시 value에
+            선택된 영화의 ID가 들어감
+          -->
+          <input
+            type="hidden"
+            id="movie-id"
+            name="movieId"
+          >
+
+        </div>
+
+
+        <!-- =========================
+             본문
+        ========================== -->
+        <div class="write-group">
+
+          <label>
+            내용
+          </label>
+
+
+          <!-- Quill 텍스트 편집기 -->
+          <div id="post-editor">
+
+            <!--
+              화면 확인용 기존 게시글 내용
+
+              추후 Java 백엔드 + Oracle DB 연동 시
+              DB에서 조회한 기존 게시글 내용으로 변경
+            -->
+            <p>
+              인셉션의 마지막 팽이 장면은 영화에서
+              가장 인상적인 장면 중 하나라고 생각합니다.
+            </p>
+
+            <p>
+              이 장면에 대해서는 여러 가지 해석이 가능한데,
+              개인적으로는 세 가지 정도로 생각해볼 수 있을 것 같습니다.
+            </p>
+
+          </div>
+
+
+          <!--
+            Quill 내용을 백엔드로 전달할 영역
+          -->
+          <input
+            type="hidden"
+            id="post-content"
+            name="content"
+          >
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+
+  <!-- Quill 텍스트 편집기 -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+
+  <script>
+
+    const quill = new Quill("#post-editor", {
+
+      theme: "snow",
+
+      placeholder: "게시글 내용을 입력하세요.",
+
+      modules: {
+
+        toolbar: [
+
+          [{ header: [1, 2, 3, false] }],
+
+          [{ font: [] }],
+
+          [{ size: [] }],
+
+          [
+            "bold",
+            "italic",
+            "underline",
+            "strike"
+          ],
+
+          [
+            { color: [] },
+            { background: [] }
+          ],
+
+          [{ align: [] }],
+
+          [
+            { list: "ordered" },
+            { list: "bullet" }
+          ],
+
+          ["blockquote"],
+
+          [
+            "link",
+            "image"
+          ],
+
+          ["clean"]
+
+        ]
+
+      }
+
+    });
+
+  </script>
+
+</body>
+</html>

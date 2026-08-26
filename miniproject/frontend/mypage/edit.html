@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>회원정보 수정 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <!-- 로그아웃 -->
+      <button
+        type="button"
+        class="logout-button"
+        onclick="
+          if (confirm('로그아웃하시겠습니까?')) {
+            location.href='../index.html';
+          }
+        "
+      >
+        로그아웃
+      </button>
+
+    </div>
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="../index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         회원정보 수정 전체 영역
+    ========================== -->
+    <section class="mypage-edit-container">
+
+      <!-- 상단 -->
+      <div class="mypage-edit-header">
+
+        <h2>
+          회원정보 수정
+        </h2>
+
+      </div>
+
+
+      <!-- =========================
+           회원정보 수정 폼
+      ========================== -->
+      <form id="profile-edit-form">
+
+        <!--
+          추후 Java 백엔드 + Oracle DB 연동 시
+          로그인한 회원의 기존 정보를 불러와 표시
+        -->
+
+
+        <!-- =========================
+             아이디
+        ========================== -->
+        <div class="input-group">
+
+          <label for="login-id">
+            아이디
+          </label>
+
+          <input
+            type="text"
+            id="login-id"
+            name="loginId"
+            readonly
+          >
+
+          <p class="help-text">
+            아이디는 변경할 수 없습니다.
+          </p>
+
+        </div>
+
+
+        <!-- =========================
+             닉네임
+        ========================== -->
+        <div class="input-group">
+
+          <label for="nickname">
+            닉네임
+          </label>
+
+          <div class="input-row">
+
+            <input
+              type="text"
+              id="nickname"
+              name="nickname"
+              placeholder="닉네임을 입력하세요"
+              required
+            >
+
+            <!-- 닉네임 중복 확인 -->
+            <button type="button">
+              중복확인
+            </button>
+
+          </div>
+
+          <p class="help-text">
+            한글/영문/숫자 2~10자
+          </p>
+
+        </div>
+
+
+        <!-- =========================
+             이메일
+        ========================== -->
+        <div class="input-group">
+
+          <label for="email">
+            이메일
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="이메일을 입력하세요"
+            required
+          >
+
+        </div>
+
+
+        <!-- =========================
+             새 비밀번호
+        ========================== -->
+        <div class="input-group">
+
+          <label for="new-password">
+            새 비밀번호
+          </label>
+
+          <input
+            type="password"
+            id="new-password"
+            name="newPassword"
+            placeholder="변경할 비밀번호를 입력하세요"
+          >
+
+          <p class="help-text">
+            변경하지 않을 경우 입력하지 않아도 됩니다.
+          </p>
+
+        </div>
+
+
+        <!-- =========================
+             새 비밀번호 확인
+        ========================== -->
+        <div class="input-group">
+
+          <label for="new-password-confirm">
+            새 비밀번호 확인
+          </label>
+
+          <input
+            type="password"
+            id="new-password-confirm"
+            name="newPasswordConfirm"
+            placeholder="변경할 비밀번호를 다시 입력하세요"
+          >
+
+        </div>
+
+
+        <!-- =========================
+             하단 버튼
+        ========================== -->
+        <div class="mypage-edit-actions">
+
+          <!-- 취소 -->
+          <button
+            type="button"
+            onclick="location.href='index.html'"
+          >
+            취소
+          </button>
+
+
+          <!-- 수정 완료 -->
+          <button
+            type="button"
+            onclick="
+              if (confirm('회원정보를 수정하시겠습니까?')) {
+                location.href='index.html';
+              }
+            "
+          >
+            수정 완료
+          </button>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

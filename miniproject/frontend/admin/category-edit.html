@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>카테고리 수정 | CINEHUB ADMIN</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB ADMIN</a>
+    </h1>
+  </header>
+
+
+  <main>
+
+    <div class="admin-container">
+
+      <!-- =========================
+           관리자 메뉴
+      ========================== -->
+      <nav class="admin-menu">
+
+        <a href="dashboard.html">
+          대시보드
+        </a>
+
+        <a href="users.html">
+          회원 관리
+        </a>
+
+        <a href="reports.html">
+          신고 관리
+        </a>
+
+        <a href="boards.html">
+          게시판 관리
+        </a>
+
+        <a href="notices.html">
+          공지사항 관리
+        </a>
+        
+        <div class="admin-logout">
+          <button
+            type="button"
+            onclick="if (confirm('로그아웃하시겠습니까?')) {
+                location.href='../index.html';}">
+            로그아웃
+      </nav>
+
+
+      <!-- =========================
+           카테고리 수정 영역
+      ========================== -->
+      <section class="admin-content">
+
+        <h2>카테고리 수정</h2>
+
+
+        <form class="category-edit-form">
+
+          <!-- 카테고리가 속한 게시판 -->
+          <div class="admin-form-group">
+
+            <label for="board">
+              게시판
+            </label>
+
+            <select
+              id="board"
+              name="boardId"
+            >
+              <option value="1" selected>
+                커뮤니티
+              </option>
+            </select>
+
+          </div>
+
+
+          <!-- 카테고리명 -->
+          <div class="admin-form-group">
+
+            <label for="category-name">
+              카테고리명
+            </label>
+
+            <input
+              type="text"
+              id="category-name"
+              name="categoryName"
+              value="영화리뷰"
+            >
+
+          </div>
+
+
+          <!-- 정렬 순서 -->
+          <div class="admin-form-group">
+
+            <label for="sort-order">
+              정렬 순서
+            </label>
+
+            <input
+              type="number"
+              id="sort-order"
+              name="sortOrder"
+              value="1"
+              min="1"
+            >
+
+          </div>
+
+
+          <!-- 하단 버튼 -->
+          <div class="admin-form-actions">
+
+            <!-- 취소 -->
+            <button
+              type="button"
+              onclick="location.href='boards.html'"
+            >
+              취소
+            </button>
+
+
+            <!-- 수정 완료 -->
+            <button
+              type="button"
+              onclick="
+                if (confirm('카테고리를 수정하시겠습니까?')) {
+                  location.href='boards.html';
+                }
+              "
+            >
+              수정 완료
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

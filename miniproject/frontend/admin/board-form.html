@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>게시판 추가 | CINEHUB ADMIN</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB ADMIN</a>
+    </h1>
+  </header>
+
+
+  <main>
+
+    <div class="admin-container">
+
+      <!-- =========================
+           관리자 메뉴
+      ========================== -->
+      <nav class="admin-menu">
+
+        <a href="dashboard.html">
+          대시보드
+        </a>
+
+        <a href="users.html">
+          회원 관리
+        </a>
+
+        <a href="reports.html">
+          신고 관리
+        </a>
+
+        <a href="boards.html">
+          게시판 관리
+        </a>
+
+        <a href="notices.html">
+          공지사항 관리
+        </a>
+
+      </nav>
+
+
+      <!-- =========================
+           게시판 추가 영역
+      ========================== -->
+      <section class="admin-content">
+
+        <h2>게시판 추가</h2>
+
+
+        <form class="board-form">
+
+          <!-- 게시판명 -->
+          <div class="admin-form-group">
+
+            <label for="board-name">
+              게시판명
+            </label>
+
+            <input
+              type="text"
+              id="board-name"
+              name="boardName"
+              placeholder="게시판명을 입력하세요"
+              required
+            >
+
+          </div>
+
+
+          <!-- 게시판 설명 -->
+          <div class="admin-form-group">
+
+            <label for="board-description">
+              설명
+            </label>
+
+            <textarea
+              id="board-description"
+              name="boardDescription"
+              rows="5"
+              placeholder="게시판 설명을 입력하세요"
+            ></textarea>
+
+          </div>
+
+
+          <!-- 정렬 순서 -->
+          <div class="admin-form-group">
+
+            <label for="sort-order">
+              정렬 순서
+            </label>
+
+            <input
+              type="number"
+              id="sort-order"
+              name="sortOrder"
+              min="1"
+              placeholder="정렬 순서를 입력하세요"
+              required
+            >
+
+          </div>
+
+
+          <!-- 하단 버튼 -->
+          <div class="admin-form-actions">
+
+            <!-- 취소 -->
+            <button
+              type="button"
+              onclick="location.href='boards.html'"
+            >
+              취소
+            </button>
+
+
+            <!-- 게시판 추가 -->
+            <button
+              type="button"
+              onclick="
+                if (confirm('게시판을 추가하시겠습니까?')) {
+                  location.href='boards.html';
+                }
+              "
+            >
+              추가
+            </button>
+
+          </div>
+
+        </form>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

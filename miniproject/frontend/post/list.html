@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>커뮤니티 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <button
+        type="button"
+        class="logout-button"
+        onclick="
+          if (confirm('로그아웃하시겠습니까?')) {
+            location.href='../index.html';
+          }
+        "
+      >
+        로그아웃
+      </button>
+
+    </div>
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="../index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         커뮤니티 전체 영역
+    ========================== -->
+    <section class="community-container">
+
+      <!-- =========================
+           커뮤니티 상단
+      ========================== -->
+      <div class="community-header">
+
+        <h2>
+          커뮤니티
+        </h2>
+
+      </div>
+
+
+      <!-- =========================
+           커뮤니티 카테고리
+      ========================== -->
+      <nav class="community-category">
+
+        <a href="#">
+          전체
+        </a>
+
+        <a href="#">
+          공지사항
+        </a>
+
+        <a href="#">
+          영화리뷰
+        </a>
+
+        <a href="#">
+          영화추천
+        </a>
+
+        <a href="#">
+          자유토론
+        </a>
+
+        <a href="#">
+          인기글
+        </a>
+
+      </nav>
+
+
+      <!-- =========================
+           검색 / 글쓰기
+      ========================== -->
+      <div class="search-area">
+
+        <input
+          type="text"
+          id="post-search"
+          name="keyword"
+          placeholder="게시글을 검색하세요"
+        >
+
+        <button type="button">
+          검색
+        </button>
+
+        <button
+          type="button"
+          onclick="location.href='form.html'"
+        >
+          글쓰기
+        </button>
+
+      </div>
+
+
+      <!-- =========================
+           공지사항
+      ========================== -->
+      <section class="community-notice">
+
+        <div class="community-section-title">
+
+          <h3>
+            공지사항
+          </h3>
+
+        </div>
+
+
+        <!--
+          화면 확인용 임시 데이터
+
+          추후 Java 백엔드 + Oracle DB 연동 시
+          등록된 공지사항 데이터를 조회하여 표시
+        -->
+        <div class="notice-post">
+
+          <div class="post-list-main">
+
+            <a href="detail.html">
+              [공지] CINEHUB 이용 안내
+            </a>
+
+          </div>
+
+          <div class="post-list-info">
+
+            <span>
+              관리자
+            </span>
+
+            <span>
+              2026.08.25
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           게시글 목록
+      ========================== -->
+      <section class="post-list">
+
+        <div class="community-section-title">
+
+          <h3>
+            게시글 목록
+          </h3>
+
+        </div>
+
+
+        <!--
+          화면 확인용 임시 데이터
+
+          추후 Java 백엔드 + Oracle DB 연동 시
+          게시글 목록을 이 영역에 반복 출력
+        -->
+
+
+        <!-- 게시글 -->
+        <div class="post-list-item">
+
+          <div class="post-list-main">
+
+            <a href="detail.html">
+              [영화리뷰] 엔딩 팽이 씬에 대한 3가지 해석
+            </a>
+
+          </div>
+
+          <div class="post-list-info">
+
+            <span>
+              유저A
+            </span>
+
+            <span>
+              조회 1420
+            </span>
+
+            <span>
+              추천 45
+            </span>
+
+            <span>
+              댓글 12
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- 게시글 -->
+        <div class="post-list-item">
+
+          <div class="post-list-main">
+
+            <a href="detail.html">
+              [영화추천] 주말에 볼 SF 영화 추천해주세요
+            </a>
+
+          </div>
+
+          <div class="post-list-info">
+
+            <span>
+              유저B
+            </span>
+
+            <span>
+              조회 520
+            </span>
+
+            <span>
+              추천 21
+            </span>
+
+            <span>
+              댓글 8
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           페이징
+      ========================== -->
+      <div class="pagination">
+
+        <button type="button">
+          이전
+        </button>
+
+        <a href="#">
+          1
+        </a>
+
+        <a href="#">
+          2
+        </a>
+
+        <a href="#">
+          3
+        </a>
+
+        <button type="button">
+          다음
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

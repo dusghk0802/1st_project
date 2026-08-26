@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>게시글 상세 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <!-- 로그아웃 -->
+      <button
+        type="button"
+        class="logout-button"
+        onclick="
+          if (confirm('로그아웃하시겠습니까?')) {
+            location.href='../index.html';
+          }
+        "
+      >
+        로그아웃
+      </button>
+
+    </div>
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="../index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         게시글 전체 영역
+    ========================== -->
+    <article class="post-container">
+
+
+      <!-- 목록 이동 -->
+      <div class="back-link">
+
+        <a href="list.html">
+          ← 목록
+        </a>
+
+      </div>
+
+
+      <!-- =========================
+           게시글 상단
+      ========================== -->
+      <header class="post-header">
+
+        <!-- 카테고리 -->
+        <p class="category">
+          영화리뷰
+        </p>
+
+        <!-- 제목 -->
+        <h2>
+          엔딩 팽이 씬에 대한 3가지 해석
+        </h2>
+
+        <!-- 게시글 정보 -->
+        <div class="post-info">
+
+          <span>
+            무비매니아
+          </span>
+
+          <span>
+            2026.08.25
+          </span>
+
+          <span>
+            조회 1,420
+          </span>
+
+        </div>
+
+      </header>
+
+
+      <!-- =========================
+           연관 영화
+      ========================== -->
+      <section class="related-movie">
+
+        <h3>
+          연관 영화
+        </h3>
+
+        <div>
+
+          <strong>
+            인셉션
+          </strong>
+
+          <span>
+            2010
+          </span>
+
+          <span>
+            ★ 8.8
+          </span>
+
+          <a href="../movie/detail.html">
+            영화 상세보기
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           게시글 본문
+      ========================== -->
+      <section class="post-content">
+
+        <!--
+          화면 확인용 임시 데이터
+
+          추후 Java 백엔드 + Oracle DB 연동 시
+          해당 게시글의 실제 내용을 표시
+        -->
+
+        <p>
+          인셉션의 마지막 팽이 장면은 영화에서
+          가장 인상적인 장면 중 하나라고 생각합니다.
+        </p>
+
+        <p>
+          이 장면에 대해서는 여러 가지 해석이 가능한데,
+          개인적으로는 세 가지 정도로 생각해볼 수 있을 것 같습니다.
+        </p>
+
+      </section>
+
+
+      <!-- =========================
+           게시글 관리
+      ========================== -->
+
+      <!--
+        작성자 본인에게만 표시
+
+        추후 Java 백엔드에서
+        로그인한 회원과 게시글 작성자가
+        동일한 경우에만 표시
+      -->
+      <div class="author-actions">
+
+        <!-- 게시글 수정 -->
+        <button
+          type="button"
+          onclick="location.href='edit.html'"
+        >
+          수정
+        </button>
+
+        <!-- 게시글 삭제 -->
+        <button
+          type="button"
+          onclick="confirm('정말 삭제하시겠습니까?')"
+        >
+          삭제
+        </button>
+
+      </div>
+
+
+      <!-- =========================
+           댓글 영역
+      ========================== -->
+      <section class="comment-section">
+
+        <h3>
+          댓글
+        </h3>
+
+
+        <!-- =========================
+             댓글 작성
+        ========================== -->
+        <div class="comment-write">
+
+          <textarea
+            rows="4"
+            name="commentContent"
+            placeholder="댓글을 입력하세요"
+          ></textarea>
+
+          <div>
+
+            <!-- 댓글 등록 -->
+            <button type="button">
+              등록
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             댓글 목록
+        ========================== -->
+        <div class="comment-list">
+
+          <!--
+            화면 확인용 임시 데이터
+
+            추후 Java 백엔드 + Oracle DB 연동 시
+            해당 게시글에 등록된 댓글을
+            이 영역에 반복 출력
+          -->
+
+
+          <!-- 다른 사용자의 댓글 -->
+          <div class="comment">
+
+            <div class="comment-info">
+
+              <strong>
+                유저A
+              </strong>
+
+              <span>
+                2026.08.25
+              </span>
+
+            </div>
+
+            <p>
+              저도 같은 생각이에요!
+            </p>
+
+            <div class="comment-actions">
+
+              <!-- 답글 -->
+              <button type="button">
+                답글
+              </button>
+
+              <!-- 신고 -->
+              <button type="button">
+                신고
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- 내가 작성한 댓글 예시 -->
+          <div class="comment">
+
+            <div class="comment-info">
+
+              <strong>
+                무비매니아
+              </strong>
+
+              <span>
+                2026.08.25
+              </span>
+
+            </div>
+
+            <p>
+              의견 감사합니다!
+            </p>
+
+            <div class="comment-actions">
+
+              <!-- 댓글 수정 -->
+              <button type="button">
+                수정
+              </button>
+
+              <!-- 댓글 삭제 -->
+              <button
+                type="button"
+                onclick="confirm('정말 삭제하시겠습니까?')"
+              >
+                삭제
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- 대댓글 예시 -->
+          <div class="comment reply">
+
+            <div class="comment-info">
+
+              <strong>
+                유저B
+              </strong>
+
+              <span>
+                2026.08.25
+              </span>
+
+            </div>
+
+            <p>
+              저는 마지막 장면을 조금 다르게 해석했어요.
+            </p>
+
+            <div class="comment-actions">
+
+              <!-- 답글 -->
+              <button type="button">
+                답글
+              </button>
+
+              <!-- 신고 -->
+              <button type="button">
+                신고
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    </article>
+
+  </main>
+
+</body>
+</html>

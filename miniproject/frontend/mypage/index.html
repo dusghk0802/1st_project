@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>마이페이지 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <!-- 로그아웃 -->
+      <button
+        type="button"
+        class="logout-button"
+        onclick="
+          if (confirm('로그아웃하시겠습니까?')) {
+            location.href='../index.html';
+          }
+        "
+      >
+        로그아웃
+      </button>
+
+    </div>
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="../index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         마이페이지 전체 영역
+    ========================== -->
+    <section class="mypage-container">
+
+      <!-- 마이페이지 상단 -->
+      <div class="mypage-header">
+
+        <h2>
+          마이페이지
+        </h2>
+
+      </div>
+
+
+      <!-- =========================
+           내 정보
+      ========================== -->
+      <section class="mypage-section">
+
+        <div class="mypage-section-header">
+
+          <h3>
+            내 정보
+          </h3>
+
+          <!-- 회원정보 수정 -->
+          <button
+            type="button"
+            onclick="location.href='edit.html'"
+          >
+            회원정보 수정
+          </button>
+
+        </div>
+
+
+        <!-- =========================
+             회원 정보
+        ========================== -->
+        <div class="profile-info">
+
+          <!-- 아이디 -->
+          <div class="profile-row">
+
+            <strong>
+              아이디
+            </strong>
+
+            <!--
+              추후 Java 백엔드 + Oracle DB 연동 시
+              로그인한 회원의 아이디 표시
+            -->
+            <span class="user-login-id">
+              -
+            </span>
+
+          </div>
+
+
+          <!-- 닉네임 -->
+          <div class="profile-row">
+
+            <strong>
+              닉네임
+            </strong>
+
+            <!--
+              추후 Java 백엔드 + Oracle DB 연동 시
+              로그인한 회원의 닉네임 표시
+            -->
+            <span class="user-nickname">
+              -
+            </span>
+
+          </div>
+
+
+          <!-- 이메일 -->
+          <div class="profile-row">
+
+            <strong>
+              이메일
+            </strong>
+
+            <!--
+              추후 Java 백엔드 + Oracle DB 연동 시
+              로그인한 회원의 이메일 표시
+            -->
+            <span class="user-email">
+              -
+            </span>
+
+          </div>
+
+
+          <!-- 가입일 -->
+          <div class="profile-row">
+
+            <strong>
+              가입일
+            </strong>
+
+            <!--
+              추후 Java 백엔드 + Oracle DB 연동 시
+              로그인한 회원의 가입일 표시
+            -->
+            <span class="user-created-at">
+              -
+            </span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           내 활동
+      ========================== -->
+      <section class="mypage-section">
+
+        <h3>
+          내 활동
+        </h3>
+
+        <nav class="mypage-menu">
+
+          <a href="#my-posts">
+            내가 작성한 글
+          </a>
+
+          <a href="#my-comments">
+            내가 작성한 댓글
+          </a>
+
+          <a href="#favorite-movies">
+            찜한 영화
+          </a>
+
+        </nav>
+
+      </section>
+
+
+      <!-- =========================
+           내가 작성한 글
+      ========================== -->
+      <section
+        class="mypage-section"
+        id="my-posts"
+      >
+
+        <h3>
+          내가 작성한 글
+        </h3>
+
+        <div class="mypage-list">
+
+          <!--
+            추후 Java 백엔드 + Oracle DB 연동 시
+            로그인한 회원이 작성한 게시글을
+            이 영역에 반복 출력
+          -->
+
+          <!-- 게시글 데이터가 없을 때 -->
+          <p class="empty-message">
+            작성한 게시글이 없습니다.
+          </p>
+
+
+          <!--
+            데이터가 있을 경우 예시 구조
+
+            <div class="mypage-list-item">
+
+              <a href="../post/detail.html">
+                게시글 제목
+              </a>
+
+              <span>
+                작성일
+              </span>
+
+            </div>
+          -->
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           내가 작성한 댓글
+      ========================== -->
+      <section
+        class="mypage-section"
+        id="my-comments"
+      >
+
+        <h3>
+          내가 작성한 댓글
+        </h3>
+
+        <div class="mypage-list">
+
+          <!--
+            추후 Java 백엔드 + Oracle DB 연동 시
+            로그인한 회원이 작성한 댓글을
+            이 영역에 반복 출력
+          -->
+
+          <!-- 댓글 데이터가 없을 때 -->
+          <p class="empty-message">
+            작성한 댓글이 없습니다.
+          </p>
+
+
+          <!--
+            데이터가 있을 경우 예시 구조
+
+            <div class="mypage-list-item">
+
+              <a href="../post/detail.html">
+                댓글 내용
+              </a>
+
+              <span>
+                작성일
+              </span>
+
+            </div>
+          -->
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           찜한 영화
+      ========================== -->
+      <section
+        class="mypage-section"
+        id="favorite-movies"
+      >
+
+        <h3>
+          찜한 영화
+        </h3>
+
+        <div class="mypage-movie-list">
+
+          <!--
+            추후 Java 백엔드 + Oracle DB 연동 시
+            로그인한 회원이 찜한 영화 목록을
+            이 영역에 반복 출력
+          -->
+
+          <!-- 찜한 영화가 없을 때 -->
+          <p class="empty-message">
+            찜한 영화가 없습니다.
+          </p>
+
+
+          <!--
+            데이터가 있을 경우 예시 구조
+
+            <a
+              href="../movie/detail.html"
+              class="mypage-movie-item"
+            >
+              영화 제목
+            </a>
+          -->
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

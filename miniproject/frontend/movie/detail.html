@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>영화 상세 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <!-- 로그아웃 -->
+      <button
+        type="button"
+        class="logout-button"
+        onclick="
+          if (confirm('로그아웃하시겠습니까?')) {
+            location.href='../index.html';
+          }
+        "
+      >
+        로그아웃
+      </button>
+
+    </div>
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="../index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+  </header>
+
+
+  <main>
+
+    <section class="movie-detail-container">
+
+      <!-- =========================
+           목록 이동
+      ========================== -->
+      <div class="back-link">
+
+        <a href="search.html">
+          ← 목록으로
+        </a>
+
+      </div>
+
+
+      <!-- =========================
+           영화 기본 정보
+      ========================== -->
+      <section class="movie-detail-main">
+
+        <!-- 포스터 -->
+        <div class="movie-detail-poster">
+          포스터 이미지
+        </div>
+
+
+        <!-- 영화 정보 -->
+        <div class="movie-detail-info">
+
+          <h2>
+            인셉션
+          </h2>
+
+          <p>
+            Inception, 2010
+          </p>
+
+          <p>
+            평점 ★ 8.8
+            |
+            상영시간 148분
+          </p>
+
+
+          <!-- 찜하기 -->
+          <button type="button">
+            ♥ 찜하기
+          </button>
+
+
+          <!-- 줄거리 -->
+          <h3>
+            줄거리
+          </h3>
+
+          <p>
+            타인의 꿈에 들어가 생각을 훔치는 특수 보안요원의 이야기가
+            표시되는 영역입니다.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           관련 커뮤니티
+      ========================== -->
+      <section class="movie-related-posts">
+
+        <div class="movie-related-header">
+
+          <h3>
+            이 영화 관련 이야기
+          </h3>
+
+          <!-- 글쓰기 -->
+          <button
+            type="button"
+            onclick="location.href='../post/form.html'"
+          >
+            글쓰기
+          </button>
+
+        </div>
+
+
+        <!--
+          화면 확인용 임시 데이터
+
+          추후 Java 백엔드 + Oracle DB 연동 시
+          해당 영화와 연결된 게시글을 조회하여 표시
+        -->
+
+        <div>
+
+          <a href="../post/detail.html">
+            [영화리뷰] 엔딩 팽이 씬에 대한 3가지 해석
+          </a>
+
+        </div>
+
+
+        <div>
+
+          <a href="../post/detail.html">
+            [자유토론] 인셉션 결말 어떻게 생각하세요?
+          </a>
+
+        </div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

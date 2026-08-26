@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>영화 탐색 | CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <!-- 로그아웃 -->
+      <button
+        type="button"
+        class="logout-button"
+        onclick="
+          if (confirm('로그아웃하시겠습니까?')) {
+            location.href='../index.html';
+          }
+        "
+      >
+        로그아웃
+      </button>
+
+    </div>
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="../index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+  </header>
+
+
+  <main>
+
+    <section class="movie-search-container">
+
+      <!-- =========================
+           영화 탐색 제목
+      ========================== -->
+      <div class="movie-search-header">
+
+        <h2>
+          영화 탐색
+        </h2>
+
+      </div>
+
+
+      <!-- =========================
+           영화 검색
+      ========================== -->
+      <div class="movie-search-area">
+
+        <input
+          type="text"
+          id="movie-search-input"
+          name="keyword"
+          placeholder="영화 제목을 검색하세요"
+        >
+
+        <button type="button">
+          검색
+        </button>
+
+      </div>
+
+
+      <!-- =========================
+           필터
+      ========================== -->
+      <div class="movie-filter">
+
+        <!-- 장르 -->
+        <select
+          id="genre"
+          name="genre"
+        >
+          <option value="">
+            전체 장르
+          </option>
+
+          <option value="action">
+            액션
+          </option>
+
+          <option value="comedy">
+            코미디
+          </option>
+
+          <option value="sf">
+            SF
+          </option>
+
+          <option value="romance">
+            로맨스
+          </option>
+
+          <option value="thriller">
+            스릴러
+          </option>
+        </select>
+
+
+        <!-- 정렬 -->
+        <select
+          id="sort"
+          name="sort"
+        >
+          <option value="popular">
+            인기순
+          </option>
+
+          <option value="rating">
+            평점순
+          </option>
+
+          <option value="latest">
+            최신순
+          </option>
+        </select>
+
+      </div>
+
+
+      <!-- =========================
+           영화 목록
+      ========================== -->
+      <section class="movie-result">
+
+        <h3>
+          영화 목록
+        </h3>
+
+
+        <div class="movie-card-list">
+
+          <!--
+            화면 확인용 임시 데이터
+
+            추후 Java 백엔드에서 영화 데이터를 조회하거나
+            외부 영화 API 데이터를 받아
+            이 영역에 반복 출력
+          -->
+
+
+          <!-- 영화 카드 -->
+          <a
+            href="detail.html"
+            class="movie-card"
+          >
+
+            <div class="movie-poster">
+              포스터 이미지
+            </div>
+
+            <strong>
+              인셉션
+            </strong>
+
+            <span>
+              2010
+            </span>
+
+            <span>
+              ★ 8.8
+            </span>
+
+          </a>
+
+
+          <!-- 영화 카드 -->
+          <a
+            href="detail.html"
+            class="movie-card"
+          >
+
+            <div class="movie-poster">
+              포스터 이미지
+            </div>
+
+            <strong>
+              인터스텔라
+            </strong>
+
+            <span>
+              2014
+            </span>
+
+            <span>
+              ★ 8.7
+            </span>
+
+          </a>
+
+
+          <!-- 영화 카드 -->
+          <a
+            href="detail.html"
+            class="movie-card"
+          >
+
+            <div class="movie-poster">
+              포스터 이미지
+            </div>
+
+            <strong>
+              기생충
+            </strong>
+
+            <span>
+              2019
+            </span>
+
+            <span>
+              ★ 8.5
+            </span>
+
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           페이징
+      ========================== -->
+      <div class="pagination">
+
+        <button type="button">
+          이전
+        </button>
+
+        <a href="#">
+          1
+        </a>
+
+        <a href="#">
+          2
+        </a>
+
+        <a href="#">
+          3
+        </a>
+
+        <button type="button">
+          다음
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
