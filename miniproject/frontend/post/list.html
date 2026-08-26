@@ -34,6 +34,7 @@
 
     </div>
 
+
     <!-- 홈 이동 -->
     <h1>
       <a href="../index.html">
@@ -51,6 +52,7 @@
     ========================== -->
     <section class="community-container">
 
+
       <!-- =========================
            커뮤니티 상단
       ========================== -->
@@ -65,30 +67,51 @@
 
       <!-- =========================
            커뮤니티 카테고리
+
+           현재는 화면 확인용으로
+           전체 메뉴에 active 적용
+
+           추후 Java 백엔드에서
+           현재 category / sort 값을 확인해서
+           해당 메뉴에 active 클래스를 적용
       ========================== -->
       <nav class="community-category">
 
-        <a href="#">
+        <!-- 전체 -->
+        <a
+          href="list.html"
+          class="active"
+        >
           전체
         </a>
 
-        <a href="#">
+
+        <!-- 공지사항 -->
+        <a href="list.html?category=notice">
           공지사항
         </a>
 
-        <a href="#">
+
+        <!-- 영화리뷰 -->
+        <a href="list.html?category=review">
           영화리뷰
         </a>
 
-        <a href="#">
+
+        <!-- 영화추천 -->
+        <a href="list.html?category=recommend">
           영화추천
         </a>
 
-        <a href="#">
+
+        <!-- 자유토론 -->
+        <a href="list.html?category=free">
           자유토론
         </a>
 
-        <a href="#">
+
+        <!-- 인기글 -->
+        <a href="list.html?sort=popular">
           인기글
         </a>
 
@@ -107,10 +130,14 @@
           placeholder="게시글을 검색하세요"
         >
 
+
+        <!-- 검색 -->
         <button type="button">
           검색
         </button>
 
+
+        <!-- 글쓰기 -->
         <button
           type="button"
           onclick="location.href='form.html'"
@@ -138,7 +165,7 @@
         <!--
           화면 확인용 임시 데이터
 
-          추후 Java 백엔드 + Oracle DB 연동 시
+          추후 Java 백엔드 + DB 연동 시
           등록된 공지사항 데이터를 조회하여 표시
         -->
         <div class="notice-post">
@@ -150,6 +177,7 @@
             </a>
 
           </div>
+
 
           <div class="post-list-info">
 
@@ -185,12 +213,28 @@
         <!--
           화면 확인용 임시 데이터
 
-          추후 Java 백엔드 + Oracle DB 연동 시
-          게시글 목록을 이 영역에 반복 출력
+          추후 Java 백엔드 + DB 연동 시
+          조회된 게시글 데이터를
+          .post-list-item 구조로 반복 출력
+
+          전체
+          → 전체 게시글 조회
+
+          category=review
+          → 영화리뷰만 조회
+
+          category=recommend
+          → 영화추천만 조회
+
+          category=free
+          → 자유토론만 조회
+
+          sort=popular
+          → 인기글 조회
         -->
 
 
-        <!-- 게시글 -->
+        <!-- 게시글 1 -->
         <div class="post-list-item">
 
           <div class="post-list-main">
@@ -200,6 +244,7 @@
             </a>
 
           </div>
+
 
           <div class="post-list-info">
 
@@ -224,7 +269,7 @@
         </div>
 
 
-        <!-- 게시글 -->
+        <!-- 게시글 2 -->
         <div class="post-list-item">
 
           <div class="post-list-main">
@@ -234,6 +279,7 @@
             </a>
 
           </div>
+
 
           <div class="post-list-info">
 
@@ -261,29 +307,71 @@
 
 
       <!-- =========================
+           게시글이 없을 경우
+      ========================== -->
+
+      <!--
+      <div class="empty-message">
+        등록된 게시글이 없습니다.
+      </div>
+      -->
+
+
+      <!-- =========================
            페이징
+
+           현재는 화면 확인용으로
+           1페이지에 active 적용
+
+           추후 Java 백엔드에서
+           현재 page 값을 확인해서
+           해당 페이지 번호에 active 적용
       ========================== -->
       <div class="pagination">
 
-        <button type="button">
+        <!-- 이전 -->
+        <a
+          href="list.html?page=1"
+          class="page-button"
+        >
           이전
-        </button>
+        </a>
 
-        <a href="#">
+
+        <!-- 1페이지 -->
+        <a
+          href="list.html?page=1"
+          class="page-number active"
+        >
           1
         </a>
 
-        <a href="#">
+
+        <!-- 2페이지 -->
+        <a
+          href="list.html?page=2"
+          class="page-number"
+        >
           2
         </a>
 
-        <a href="#">
+
+        <!-- 3페이지 -->
+        <a
+          href="list.html?page=3"
+          class="page-number"
+        >
           3
         </a>
 
-        <button type="button">
+
+        <!-- 다음 -->
+        <a
+          href="list.html?page=2"
+          class="page-button"
+        >
           다음
-        </button>
+        </a>
 
       </div>
 
