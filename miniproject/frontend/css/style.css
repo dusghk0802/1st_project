@@ -1085,11 +1085,6 @@ article {
 }
 
 /* =========================
-   edit.html
-========================= */
-/* 게시글 수정은 form.html과 동일한 글쓰기 스타일 사용 */
-
-/* =========================
    form.html
 ========================= */
 .write-container {
@@ -1509,4 +1504,808 @@ body:has(.ai-banner) main {
 .ql-container {
   width: 100%;
   box-sizing: border-box;
+}
+
+
+/* ==================================================
+   CINEHUB MOVIE COMMUNITY THEME
+================================================== */
+
+:root {
+  --cine-bg: #f3f4f6;
+  --cine-panel: #ffffff;
+  --cine-soft: #f7f8fa;
+  --cine-line: #e1e4e8;
+  --cine-text: #202124;
+  --cine-muted: #747b84;
+  --cine-dark: #17181b;
+  --cine-accent: #e53945;
+  --cine-hover: #fff5f6;
+  --cine-focus: rgba(229, 57, 69, 0.13);
+}
+
+body {
+  background-color: var(--cine-bg);
+  color: var(--cine-text);
+}
+
+a {
+  color: var(--cine-text);
+  transition: color 0.18s ease;
+}
+
+a:hover {
+  color: var(--cine-accent);
+}
+
+body > header {
+  padding: 18px 0 16px;
+  background-color: var(--cine-dark);
+  border-bottom: none;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14);
+}
+
+body > header h1 a {
+  color: white;
+  font-weight: 900;
+  letter-spacing: 1.6px;
+}
+
+body > header a,
+.user-menu a,
+.logout-button {
+  color: #e4e5e7;
+}
+
+.user-menu a:hover,
+.logout-button:hover {
+  color: white;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  margin-top: 16px;
+}
+
+.main-nav a {
+  position: relative;
+  color: #e4e5e7;
+  font-weight: 700;
+}
+
+.main-nav a:hover {
+  color: white;
+}
+
+.main-nav a::after,
+.community-category a::after,
+.mypage-menu a::after,
+.admin-menu > a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--cine-accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.main-nav a:hover::after,
+.community-category a:hover::after,
+.mypage-menu a:hover::after,
+.admin-menu > a:hover::after {
+  transform: scaleX(1);
+}
+
+main {
+  padding: 42px 22px 64px;
+  animation: cinehubPageIn 0.32s ease both;
+}
+
+@keyframes cinehubPageIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.admin-container,
+.movie-detail-container,
+.movie-search-container,
+.mypage-container,
+.post-container,
+.write-container,
+.community-container,
+.main-section {
+  width: min(1100px, calc(100% - 22px));
+  background-color: var(--cine-panel);
+  border: 1px solid var(--cine-line);
+  border-radius: 12px;
+  box-shadow: 0 7px 24px rgba(30, 34, 40, 0.05);
+}
+
+.login-container,
+.register-container,
+.mypage-edit-container {
+  background-color: var(--cine-panel);
+  border: 1px solid var(--cine-line);
+  border-radius: 12px;
+  box-shadow: 0 7px 24px rgba(30, 34, 40, 0.05);
+}
+
+.ai-banner {
+  position: relative;
+  width: min(1100px, calc(100% - 22px));
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 48px;
+  box-sizing: border-box;
+  overflow: hidden;
+  color: white;
+  background: #000000;
+  border: none;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(20, 23, 28, 0.18);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ai-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background-color: var(--cine-accent);
+}
+
+.ai-banner:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(20, 23, 28, 0.24);
+}
+
+.ai-banner h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 12px;
+  color: white;
+  font-size: 34px;
+  letter-spacing: -0.5px;
+}
+
+.ai-banner p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 16px;
+}
+
+.main-section {
+  padding: 34px 40px;
+}
+
+.main-section h2 {
+  margin-top: 0;
+  padding-bottom: 16px;
+  border-bottom-color: var(--cine-line);
+}
+
+.popular-posts > div,
+.post-list-item,
+.mypage-list-item {
+  border-bottom-color: var(--cine-line);
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.popular-posts > div:hover,
+.post-list-item:hover,
+.mypage-list-item:hover {
+  background-color: var(--cine-hover);
+  transform: translateX(3px);
+}
+
+button {
+  color: #30343a;
+  background-color: white;
+  border-color: #d7dbe0;
+  border-radius: 7px;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.12s ease;
+}
+
+button:hover {
+  color: white;
+  background-color: var(--cine-accent);
+  border-color: var(--cine-accent);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+.logout-button,
+.admin-logout button,
+.selected-movie button {
+  background: none;
+  border: none;
+}
+
+.logout-button:hover,
+.admin-logout button:hover,
+.selected-movie button:hover {
+  color: var(--cine-accent);
+  background: none;
+}
+
+input,
+textarea,
+select {
+  color: var(--cine-text);
+  background-color: white;
+  border-color: #d7dbe0;
+  border-radius: 7px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--cine-accent);
+  box-shadow: 0 0 0 3px var(--cine-focus);
+}
+
+.movie-search-container,
+.movie-detail-container,
+.community-container,
+.post-container,
+.write-container,
+.mypage-container {
+  padding: 42px 48px;
+}
+
+.movie-card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 26px;
+}
+
+.movie-card {
+  width: auto;
+  padding: 8px;
+  border-radius: 10px;
+  transition: transform 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-6px);
+  background-color: var(--cine-soft);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.07);
+}
+
+.movie-poster,
+.movie-detail-poster {
+  background-color: #eceef1;
+  border-color: #d7dbe0;
+  border-radius: 10px;
+}
+
+.community-category {
+  justify-content: flex-start;
+  gap: 30px;
+  padding: 8px 0 20px;
+  border-bottom-color: var(--cine-line);
+}
+
+.community-category a,
+.mypage-menu a,
+.admin-menu > a {
+  position: relative;
+  color: #636a73;
+  font-weight: 700;
+}
+
+.notice-post {
+  padding: 15px 18px;
+  background-color: #fff6f7;
+  border: 1px solid #f1d7da;
+  border-left: 4px solid var(--cine-accent);
+  border-radius: 6px;
+}
+
+.post-list-info,
+.post-info,
+.comment-info,
+.help-text,
+.movie-card span {
+  color: var(--cine-muted);
+}
+
+.related-movie,
+.selected-movie,
+.summary > div {
+  background-color: var(--cine-soft);
+  border-color: var(--cine-line);
+  border-radius: 8px;
+}
+
+.admin-menu {
+  width: 220px;
+  padding: 34px 24px;
+  background-color: #fafafb;
+  border-right-color: var(--cine-line);
+}
+
+.board-table th,
+.category-table th,
+.notice-table th,
+.user-table th {
+  background-color: #f6f7f9;
+}
+
+.board-table th,
+.board-table td,
+.category-table th,
+.category-table td,
+.notice-table th,
+.notice-table td,
+.user-table th,
+.user-table td,
+.profile-row,
+.mypage-section,
+.comment,
+.post-content,
+.post-header,
+.movie-detail-main,
+.community-header,
+.community-section-title {
+  border-color: var(--cine-line);
+}
+
+.ql-toolbar.ql-snow {
+  background-color: #f6f7f9;
+  border-color: #d7dbe0;
+  border-radius: 7px 7px 0 0;
+}
+
+.ql-container.ql-snow {
+  background-color: white;
+  border-color: #d7dbe0;
+  border-radius: 0 0 7px 7px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* ==================================================
+   메인페이지 - 실시간 인기 영화 TOP 5 효과
+   추후 DB에서 아래 클래스 구조로 영화 목록을 출력하면 자동 적용
+   .main-movie-item
+   .movie-rank
+   .movie-title
+   .movie-rating
+================================================== */
+
+.movie-list {
+  padding: 10px 0;
+}
+
+.main-movie-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 12px;
+  border-bottom: 1px solid var(--cine-line);
+  border-radius: 7px;
+  color: var(--cine-text);
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.main-movie-item:last-child {
+  border-bottom: none;
+}
+
+.main-movie-item:hover {
+  background-color: var(--cine-soft);
+  transform: translateX(4px);
+  box-shadow: inset 3px 0 0 var(--cine-accent);
+}
+
+.movie-rank {
+  width: 32px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 900;
+  color: #9a9fa6;
+  transition:
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.movie-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition:
+    color 0.18s ease,
+    transform 0.18s ease,
+    letter-spacing 0.18s ease;
+}
+
+.movie-rating {
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cine-muted);
+  transition: color 0.18s ease;
+}
+
+.main-movie-item:hover .movie-rank {
+  color: var(--cine-accent);
+  transform: scale(1.08);
+}
+
+.main-movie-item:hover .movie-title {
+  color: var(--cine-accent);
+  transform: translateX(2px);
+  letter-spacing: 0.2px;
+}
+
+.main-movie-item:hover .movie-rating {
+  color: #444950;
+}
+
+@media (max-width: 600px) {
+  .main-movie-item {
+    gap: 10px;
+    padding: 15px 8px;
+  }
+
+  .movie-rank {
+    width: 26px;
+    font-size: 19px;
+  }
+
+  .movie-title {
+    font-size: 15px;
+  }
+
+  .movie-rating {
+    font-size: 13px;
+  }
+}
+
+/* ==================================================
+   커뮤니티 카테고리 선택 상태
+================================================== */
+
+.community-category a {
+  position: relative;
+}
+
+.community-category a.active {
+  color: var(--cine-accent);
+}
+
+.community-category a.active::after {
+  transform: scaleX(1);
+}
+
+
+/* ==================================================
+   커뮤니티 페이징
+================================================== */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 30px;
+}
+
+
+/* 이전 / 다음 버튼 */
+.pagination .page-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 52px;
+  height: 36px;
+
+  padding: 0 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d7dbe0;
+  border-radius: 7px;
+
+  background-color: white;
+
+  color: #444950;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.12s ease;
+}
+
+.pagination .page-button:hover {
+  color: white;
+
+  background-color: var(--cine-accent);
+
+  border-color: var(--cine-accent);
+}
+
+.pagination .page-button:active {
+  transform: scale(0.97);
+}
+
+
+/* 페이지 번호 */
+.pagination .page-number {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 36px;
+  height: 36px;
+
+  box-sizing: border-box;
+
+  border-radius: 7px;
+
+  color: #555b63;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.12s ease;
+}
+
+.pagination .page-number:hover {
+  background-color: #f3f4f6;
+
+  color: var(--cine-accent);
+}
+
+
+/* 현재 페이지 */
+.pagination .page-number.active {
+  color: white;
+
+  background-color: var(--cine-accent);
+
+  font-weight: 700;
+}
+
+.pagination .page-number:active {
+  transform: scale(0.95);
+}
+
+
+/* 기존 pagination 공통 여백 덮어쓰기 */
+.pagination a,
+.pagination button {
+  margin: 0;
+}
+
+
+/* 모바일 */
+@media (max-width: 600px) {
+
+  .community-category {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .pagination {
+    gap: 4px;
+  }
+
+  .pagination .page-button {
+    min-width: 48px;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .pagination .page-number {
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
+  }
+
+}
+
+.admin-menu > a.active {
+  color: var(--cine-accent);
+}
+
+.admin-menu > a.active::after {
+  transform: scaleX(1);
+}
+
+
+/* ==================================================
+   게시글 상세 - 수정 / 삭제 버튼 스타일 통일
+================================================== */
+
+.post-content {
+  border-bottom: none;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0 30px;
+  padding: 0;
+  border: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.post-actions button,
+.post-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: auto;
+  width: auto;
+  height: auto;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  border: 1px solid #d7dbe0;
+  border-radius: 7px;
+  background-color: #ffffff;
+  color: #444950;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.12s ease;
+}
+
+.post-actions button:hover,
+.post-actions a:hover {
+  color: #ffffff;
+  background-color: var(--cine-accent);
+  border-color: var(--cine-accent);
+}
+
+.post-actions button:active,
+.post-actions a:active {
+  transform: scale(0.97);
+}
+
+/* 댓글 영역 위쪽에 별도 구분선이 생기지 않도록 제거 */
+.comment-section {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* ==================================================
+   게시글 상세 - 작성자 수정 / 삭제 버튼
+================================================== */
+
+.author-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 8px;
+
+  margin: 20px 0 30px;
+  padding: 0;
+
+  border: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.author-actions button {
+  width: auto;
+  min-width: 0;
+  height: auto;
+
+  padding: 5px 10px;
+
+  border: 1px solid #d7dbe0;
+  border-radius: 7px;
+
+  background-color: #ffffff;
+  color: #444950;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.12s ease;
+}
+
+.author-actions button:hover {
+  color: #ffffff;
+  background-color: var(--cine-accent);
+  border-color: var(--cine-accent);
+}
+
+.author-actions button:active {
+  transform: scale(0.97);
+}
+
+.comment-actions button {
+  width: auto;
+  min-width: 0;
+  height: auto;
+
+  padding: 5px 10px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+.post-content,
+.author-actions,
+.comment-section {
+  border-top: none;
+  border-bottom: none;
 }
