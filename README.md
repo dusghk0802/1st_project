@@ -157,7 +157,11 @@ run.ps1               컴파일·서버 실행 스크립트
 
 | 이름 | 역할 | 담당 기능 | GitHub |
 | --- | --- | --- | --- |
-| 노건우 | 팀장 / AI | 담당 기능 입력 | [GitHub](https://github.com/asdg441) |
+| 노건우 | 팀장 / AI | • 프로젝트 총괄 및 WBS 일정 관리
+
+• TMDB 데이터 수집 및 임베딩 파이프라인 구축
+
+• Qdrant 벡터 DB 기반 영화 의미 검색 & 유사 영화 추천 API 개발 | [GitHub](https://github.com/asdg441) |
 | 이연화 | Frontend / DB설계 | 담당 기능 입력 | [GitHub](https://github.com/dusghk0802) |
 | 조문희 | Backend /  | 담당 기능 입력 | [GitHub](https://github.com/munhee777) |
 
