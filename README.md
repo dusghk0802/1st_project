@@ -10,7 +10,7 @@
 
 CINEHUB는 제목 검색뿐 아니라 **“우주를 떠도는 과학자”**, **“비 오는 날 혼자 보기 좋은 영화”**처럼 자연어로 영화를 찾고, 영화 감상과 추천을 커뮤니티에서 공유하는 서비스입니다.
 
-Spring Boot 없이 JDK `HttpServer`와 JDBC로 구현했습니다. Oracle XE가 서비스 데이터를 저장하고, `JavaRagService`가 OpenAI Embeddings와 Qdrant REST API를 직접 호출해 의미 기반 영화 검색을 제공합니다.
+JDK `HttpServer`와 JDBC로 구현했습니다. Oracle XE가 서비스 데이터를 저장하고, `JavaRagService`가 OpenAI Embeddings와 Qdrant REST API를 직접 호출해 의미 기반 영화 검색을 제공합니다.
 
 ## 주요 기능
 
