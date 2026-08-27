@@ -37,6 +37,18 @@ CINEHUB는 영화 정보를 검색하고, 자연어 문장으로 분위기에 �
 
 서비스 구조도와 RAG 검색 흐름은 [SERVICE_ARCHITECTURE.md](docs/SERVICE_ARCHITECTURE.md)에서 확인할 수 있습니다.
 
+```mermaid
+flowchart LR
+    Browser[사용자 브라우저] --> Java[Java HttpServer]
+    Java --> Oracle[(Oracle XE)]
+    Java --> RAG[JavaRagService]
+    RAG --> OpenAI[OpenAI Embeddings]
+    RAG --> Qdrant[(Qdrant)]
+    TMDB[TMDB] --> Oracle
+```
+
+`JavaRagService`가 OpenAI와 Qdrant REST API를 직접 호출합니다. 즉, 영화 의미 검색에 별도의 Python 웹 서버는 필요하지 않습니다.
+
 ## ERD
 
 [ERD.dbml](docs/ERD.dbml)은 현재 Oracle 스키마를 기준으로 작성한 dbdiagram.io용 코드입니다.
@@ -44,6 +56,22 @@ CINEHUB는 영화 정보를 검색하고, 자연어 문장으로 분위기에 �
 1. [dbdiagram.io](https://dbdiagram.io/)를 엽니다.
 2. [ERD.dbml](docs/ERD.dbml)의 전체 내용을 붙여 넣습니다.
 3. 생성된 ERD를 PNG 또는 PDF로 내보낼 수 있습니다.
+
+### 핵심 데이터 관계
+
+```mermaid
+erDiagram
+    USERS ||--o{ POSTS : writes
+    USERS ||--o{ COMMENTS : writes
+    USERS ||--o{ POST_LIKES : likes
+    BOARDS ||--o{ POSTS : contains
+    CATEGORIES ||--o{ POSTS : classifies
+    MOVIES ||--o{ POSTS : references
+    POSTS ||--o{ COMMENTS : has
+    POSTS ||--o{ POST_LIKES : receives
+    MOVIES ||--o{ MOVIE_GENRES : has
+    GENRES ||--o{ MOVIE_GENRES : classifies
+```
 
 ## 실행 전 준비
 
