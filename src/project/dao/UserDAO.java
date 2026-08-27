@@ -177,4 +177,15 @@ public class UserDAO {
             return false;
         }
     }
+    /** Keeps authored content and moderation history intact while disabling the account. */
+    public boolean withdrawUser(long userId) {
+        String sql = "UPDATE users SET status = 'WITHDRAWN' WHERE user_id = ? AND status = 'ACTIVE'";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, userId);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("Account withdrawal failed: " + e.getMessage());
+            return false;
+        }
+    }
 }

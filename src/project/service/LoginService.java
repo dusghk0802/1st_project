@@ -64,6 +64,10 @@ public class LoginService {
                 return LoginResult.fail(LoginStatus.USER_NOT_FOUND);
             }
 
+            if (!"ACTIVE".equals(user.getStatus())) {
+                return LoginResult.fail(LoginStatus.USER_NOT_FOUND);
+            }
+
             // 비밀번호 불일치 검사
             if (!PasswordHasher.matches(password, user.getPasswordHash())) {
                 return LoginResult.fail(LoginStatus.WRONG_PASSWORD);

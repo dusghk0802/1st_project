@@ -248,6 +248,31 @@ public class PostDAO {
         }
     }
 
+    public boolean isLiked(long postId, long userId) {
+        String sql = "SELECT COUNT(*) FROM post_likes WHERE post_id = ? AND user_id = ?";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, postId);
+            pstmt.setLong(2, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next() && rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public int getLikeCount(long postId) {
+        String sql = "SELECT like_count FROM posts WHERE post_id = ?";
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, postId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next() ? rs.getInt(1) : 0;
+            }
+        } catch (SQLException e) {
+            return 0;
+        }
+    }
+
     /**
      * 8. [마이페이지 전용] 내가 작성한 게시글 목록 조회
      */

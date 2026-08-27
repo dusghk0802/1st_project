@@ -1,0 +1,176 @@
+// Paste this file into https://dbdiagram.io/ to render the CINEHUB ERD.
+
+Table users {
+  user_id number [pk, increment]
+  login_id varchar(30) [not null, unique]
+  password_hash varchar(255) [not null]
+  nickname varchar(30) [not null, unique]
+  email varchar(255) [not null, unique]
+  role varchar(10) [not null, note: 'USER | ADMIN']
+  status varchar(20) [not null, note: 'ACTIVE | SUSPENDED | WITHDRAWN']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table login_logs {
+  log_id number [pk, increment]
+  user_id number [not null]
+  ip_address varchar(45) [not null]
+  user_agent varchar(255)
+  status varchar(20) [not null]
+  created_at timestamp [not null]
+}
+
+Table admin_action_logs {
+  log_id number [pk, increment]
+  admin_id number [not null]
+  action_type varchar(50) [not null]
+  target_type varchar(30) [not null]
+  target_id number [not null]
+  reason varchar(255)
+  ip_address varchar(45) [not null]
+  created_at timestamp [not null]
+}
+
+Table reports {
+  report_id number [pk, increment]
+  reporter_id number [not null]
+  target_type varchar(20) [not null, note: 'POST | COMMENT | USER']
+  target_id number [not null]
+  reason varchar(255) [not null]
+  status varchar(20) [not null, note: 'PENDING | REVIEWED | RESOLVED | REJECTED']
+  resolved_by number
+  resolved_at timestamp
+  created_at timestamp [not null]
+}
+
+Table movies {
+  movie_id number [pk, increment]
+  tmdb_id number [not null, unique]
+  title varchar(255) [not null]
+  original_title varchar(255)
+  overview clob
+  runtime number
+  release_date date
+  poster_path varchar(255)
+  backdrop_path varchar(255)
+  vote_average number
+  vote_count number
+  popularity number
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table genres {
+  genre_id number [pk]
+  name varchar(50) [not null]
+}
+
+Table movie_genres {
+  movie_id number [pk]
+  genre_id number [pk]
+}
+
+Table movie_likes {
+  movie_id number [pk]
+  user_id number [pk]
+  created_at timestamp [not null]
+}
+
+Table boards {
+  board_id number [pk, increment]
+  name varchar(50) [not null, unique]
+  description varchar(255)
+  sort_order number [not null]
+  created_at timestamp [not null]
+}
+
+Table categories {
+  category_id number [pk, increment]
+  board_id number [not null]
+  name varchar(50) [not null]
+  sort_order number [not null]
+  created_at timestamp [not null]
+
+  indexes { (board_id, name) [unique] }
+}
+
+Table posts {
+  post_id number [pk, increment]
+  board_id number [not null]
+  category_id number
+  author_id number [not null]
+  movie_id number
+  title varchar(200) [not null]
+  content clob [not null]
+  view_count number [not null]
+  like_count number [not null]
+  comment_count number [not null]
+  status varchar(20) [not null, note: 'PUBLISHED | HIDDEN | DELETED']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table post_likes {
+  post_id number [pk]
+  user_id number [pk]
+  created_at timestamp [not null]
+}
+
+Table comments {
+  comment_id number [pk, increment]
+  post_id number [not null]
+  author_id number [not null]
+  parent_comment_id number
+  content clob [not null]
+  status varchar(20) [not null]
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table notices {
+  notice_id number [pk]
+  title varchar(200) [not null]
+  content clob [not null]
+  pinned char(1) [not null]
+  created_at date [not null]
+  updated_at date
+}
+
+Table notifications {
+  notification_id number [pk, increment]
+  user_id number [not null]
+  type varchar(30) [not null]
+  message varchar(500) [not null]
+  link varchar(255)
+  is_read char(1) [not null]
+  created_at timestamp [not null]
+}
+
+Table contact_messages {
+  message_id number [pk, increment]
+  sender_name varchar(80) [not null]
+  email varchar(255) [not null]
+  message clob [not null]
+  created_at timestamp [not null]
+}
+
+Ref: login_logs.user_id > users.user_id
+Ref: admin_action_logs.admin_id > users.user_id
+Ref: reports.reporter_id > users.user_id
+Ref: reports.resolved_by > users.user_id
+Ref: movie_genres.movie_id > movies.movie_id
+Ref: movie_genres.genre_id > genres.genre_id
+Ref: movie_likes.movie_id > movies.movie_id
+Ref: movie_likes.user_id > users.user_id
+Ref: categories.board_id > boards.board_id
+Ref: posts.board_id > boards.board_id
+Ref: posts.category_id > categories.category_id
+Ref: posts.author_id > users.user_id
+Ref: posts.movie_id > movies.movie_id
+Ref: post_likes.post_id > posts.post_id
+Ref: post_likes.user_id > users.user_id
+Ref: comments.post_id > posts.post_id
+Ref: comments.author_id > users.user_id
+Ref: comments.parent_comment_id > comments.comment_id
+Ref: notifications.user_id > users.user_id
