@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>게시판 관리 | CINEHUB ADMIN</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- 상단 -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB ADMIN</a>
+    </h1>
+  </header>
+
+
+  <main>
+
+    <div class="admin-container">
+
+      <!-- =========================
+           관리자 메뉴
+      ========================== -->
+      <nav class="admin-menu">
+
+        <a href="dashboard.html">
+          대시보드
+        </a>
+
+        <a href="users.html">
+          회원 관리
+        </a>
+
+        <a href="reports.html">
+          신고 관리
+        </a>
+
+        <a href="boards.html">
+          게시판 관리
+        </a>
+
+        <a href="notices.html">
+          공지사항 관리
+        </a>
+
+      </nav>
+
+
+      <!-- =========================
+           게시판 관리 전체 영역
+      ========================== -->
+      <section class="admin-content">
+
+        <h2>게시판 관리</h2>
+
+
+        <!-- =========================
+             게시판 관리
+        ========================== -->
+        <section class="board-manage-section">
+
+          <!-- 게시판 목록 상단 -->
+          <div class="admin-section-header">
+
+            <h3>게시판 목록</h3>
+
+            <!-- 게시판 추가 -->
+            <button
+              type="button"
+              onclick="location.href='board-form.html'"
+            >
+              게시판 추가
+            </button>
+
+          </div>
+
+
+          <!-- 게시판 목록 -->
+          <table class="board-table">
+
+            <thead>
+
+              <tr>
+                <th>게시판 번호</th>
+                <th>게시판명</th>
+                <th>설명</th>
+                <th>정렬 순서</th>
+                <th>관리</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <!-- 게시판 예시 -->
+              <tr data-board-id="1">
+
+                <td>1</td>
+
+                <td>
+                  커뮤니티
+                </td>
+
+                <td>
+                  영화 관련 이야기를 나누는 게시판
+                </td>
+
+                <td>
+                  1
+                </td>
+
+                <td class="manage-actions">
+
+                  <!-- 게시판 수정 -->
+                  <button
+                    type="button"
+                    onclick="location.href='board-edit.html'"
+                  >
+                    수정
+                  </button>
+
+                  <!-- 게시판 삭제 -->
+                  <button
+                    type="button"
+                    onclick="confirm('정말 삭제하시겠습니까?')"
+                  >
+                    삭제
+                  </button>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </section>
+
+
+        <!-- =========================
+             카테고리 관리
+        ========================== -->
+        <section class="category-manage-section">
+
+          <!-- 카테고리 목록 상단 -->
+          <div class="admin-section-header">
+
+            <h3>카테고리 관리</h3>
+
+            <!-- 카테고리 추가 -->
+            <button
+              type="button"
+              onclick="location.href='category-form.html'"
+            >
+              카테고리 추가
+            </button>
+
+          </div>
+
+
+          <!-- 게시판 선택 -->
+          <div class="category-board-select">
+
+            <label for="board-select">
+              게시판
+            </label>
+
+            <select
+              id="board-select"
+              name="boardId"
+            >
+
+              <option value="1">
+                커뮤니티
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- 카테고리 목록 -->
+          <table class="category-table">
+
+            <thead>
+
+              <tr>
+                <th>카테고리 번호</th>
+                <th>카테고리명</th>
+                <th>정렬 순서</th>
+                <th>관리</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <!-- 영화리뷰 -->
+              <tr data-category-id="1">
+
+                <td>1</td>
+
+                <td>
+                  영화리뷰
+                </td>
+
+                <td>
+                  1
+                </td>
+
+                <td class="manage-actions">
+
+                  <!-- 카테고리 수정 -->
+                  <button
+                    type="button"
+                    onclick="location.href='category-edit.html'"
+                  >
+                    수정
+                  </button>
+
+                  <!-- 카테고리 삭제 -->
+                  <button
+                    type="button"
+                    onclick="confirm('정말 삭제하시겠습니까?')"
+                  >
+                    삭제
+                  </button>
+
+                </td>
+
+              </tr>
+
+
+              <!-- 영화추천 -->
+              <tr data-category-id="2">
+
+                <td>2</td>
+
+                <td>
+                  영화추천
+                </td>
+
+                <td>
+                  2
+                </td>
+
+                <td class="manage-actions">
+
+                  <!-- 카테고리 수정 -->
+                  <button
+                    type="button"
+                    onclick="location.href='category-edit.html'"
+                  >
+                    수정
+                  </button>
+
+                  <!-- 카테고리 삭제 -->
+                  <button
+                    type="button"
+                    onclick="confirm('정말 삭제하시겠습니까?')"
+                  >
+                    삭제
+                  </button>
+
+                </td>
+
+              </tr>
+
+
+              <!-- 자유토론 -->
+              <tr data-category-id="3">
+
+                <td>3</td>
+
+                <td>
+                  자유토론
+                </td>
+
+                <td>
+                  3
+                </td>
+
+                <td class="manage-actions">
+
+                  <!-- 카테고리 수정 -->
+                  <button
+                    type="button"
+                    onclick="location.href='category-edit.html'"
+                  >
+                    수정
+                  </button>
+
+                  <!-- 카테고리 삭제 -->
+                  <button
+                    type="button"
+                    onclick="confirm('정말 삭제하시겠습니까?')"
+                  >
+                    삭제
+                  </button>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </section>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

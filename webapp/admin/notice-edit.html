@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>공지사항 수정 | CINEHUB ADMIN</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+
+  <!-- Quill 텍스트 편집기 CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css"
+    rel="stylesheet"
+  >
+</head>
+
+<body>
+
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB ADMIN</a>
+    </h1>
+  </header>
+
+
+  <main>
+
+    <div class="admin-container">
+
+      <!-- =========================
+           관리자 메뉴
+      ========================== -->
+      <nav class="admin-menu">
+
+        <a href="dashboard.html">
+          대시보드
+        </a>
+
+        <a href="users.html">
+          회원 관리
+        </a>
+
+        <a href="reports.html">
+          신고 관리
+        </a>
+
+        <a href="boards.html">
+          게시판 관리
+        </a>
+
+        <a href="notices.html">
+          공지사항 관리
+        </a>
+        
+        <div class="admin-logout">
+          <button
+            type="button"
+            onclick="if (confirm('로그아웃하시겠습니까?')) {
+                location.href='../index.html';}">
+            로그아웃
+
+      </nav>
+
+
+      <!-- =========================
+           공지사항 수정 영역
+      ========================== -->
+      <section class="admin-content">
+
+        <!-- 상단 -->
+        <div class="notice-form-header">
+
+          <h2>공지사항 수정</h2>
+
+          <div class="notice-form-actions">
+
+            <!-- 취소 -->
+            <button
+              type="button"
+              onclick="location.href='notices.html'"
+            >
+              취소
+            </button>
+
+            <!-- 수정 완료 -->
+            <button
+              type="button"
+              onclick="updateNotice()"
+            >
+              수정 완료
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- =========================
+             공지사항 수정 폼
+        ========================== -->
+        <form id="notice-edit-form">
+
+          <!--
+            화면 확인용 임시 데이터
+
+            추후 Java 백엔드 + Oracle DB 연동 시
+            실제 공지사항 데이터로 변경
+          -->
+
+
+          <!-- 제목 -->
+          <div class="notice-form-group">
+
+            <label for="notice-title">
+              제목
+            </label>
+
+            <input
+              type="text"
+              id="notice-title"
+              name="title"
+              value="CINEHUB 이용 안내"
+              required
+            >
+
+          </div>
+
+
+          <!-- 상단 고정 -->
+          <div class="notice-form-group">
+
+            <label class="notice-pin">
+
+              <input
+                type="checkbox"
+                id="notice-pinned"
+                name="pinned"
+                checked
+              >
+
+              상단 고정
+
+            </label>
+
+          </div>
+          
+          <div class="notice-form-group">
+
+            <label>
+              내용
+            </label>
+
+
+            <!-- Quill 텍스트 편집기 -->
+            <div id="notice-editor">
+
+              <!-- 화면 확인용 기존 공지사항 내용 -->
+              <p>
+                CINEHUB 이용 안내 공지사항입니다.
+              </p>
+
+            </div>
+
+
+            <!--
+              Quill에서 작성한 내용을 저장할 영역
+
+              추후 Java 백엔드에서는
+              name="content" 값을 받아서
+              Oracle DB에 저장하면 됨
+            -->
+            <input
+              type="hidden"
+              id="notice-content"
+              name="content"
+            >
+
+          </div>
+
+        </form>
+
+      </section>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       Quill 텍스트 편집기
+  ========================== -->
+  <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+
+
+  <script>
+
+    // =========================
+    // Quill 텍스트 편집기 생성
+    // =========================
+
+    const quill = new Quill("#notice-editor", {
+
+      theme: "snow",
+
+      placeholder: "공지사항 내용을 입력하세요.",
+
+      modules: {
+
+        toolbar: [
+
+          // 제목 크기
+          [
+            {
+              header: [
+                1,
+                2,
+                3,
+                false
+              ]
+            }
+          ],
+
+          // 글꼴
+          [
+            {
+              font: []
+            }
+          ],
+
+          // 글자 크기
+          [
+            {
+              size: []
+            }
+          ],
+
+          // 글자 서식
+          [
+            "bold",
+            "italic",
+            "underline",
+            "strike"
+          ],
+
+          // 글자색 / 배경색
+          [
+            {
+              color: []
+            },
+            {
+              background: []
+            }
+          ],
+
+          // 정렬
+          [
+            {
+              align: []
+            }
+          ],
+
+          // 목록
+          [
+            {
+              list: "ordered"
+            },
+            {
+              list: "bullet"
+            }
+          ],
+
+          // 인용
+          [
+            "blockquote"
+          ],
+
+          // 링크 / 이미지
+          [
+            "link",
+            "image"
+          ],
+
+          // 서식 제거
+          [
+            "clean"
+          ]
+
+        ]
+
+      }
+
+    });
+
+
+    // =========================
+    // 공지사항 수정
+    // =========================
+
+    function updateNotice() {
+
+      // Quill에 작성된 내용을 HTML 형태로 가져오기
+      const editorContent =
+        quill.root.innerHTML;
+
+      // hidden input에 내용 저장
+      document.querySelector("#notice-content").value =
+        editorContent;
+
+
+      /*
+        추후 Java 백엔드 연동
+
+        Java 백엔드에서 받을 값
+
+        title
+        pinned
+        content
+
+        실제 수정 과정
+
+        notice-edit.html
+              ↓
+        Java 백엔드
+              ↓
+        Oracle UPDATE
+              ↓
+        수정 성공
+              ↓
+        notices.html
+      */
+
+
+      // 현재는 화면 동작 확인용
+      if (confirm("공지사항을 수정하시겠습니까?")) {
+
+        location.href = "notices.html";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CINEHUB</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+
+    <!-- 로그인 상태 메뉴 -->
+    <div class="user-menu">
+
+      <!-- 비로그인 상태 -->
+      <div class="guest-menu">
+        <a href="auth/login.html">
+          로그인
+        </a>
+      </div>
+
+      <!-- 로그인 상태 -->
+      <div class="member-menu">
+
+        <a href="mypage/index.html">
+          마이페이지
+        </a>
+
+        <a href="index.html">
+          로그아웃
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- 홈 이동 -->
+    <h1>
+      <a href="index.html">
+        CINEHUB
+      </a>
+    </h1>
+
+
+    <!-- =========================
+         메인 메뉴
+    ========================== -->
+    <nav class="main-nav">
+
+      <!-- 영화 탐색 -->
+      <a href="movie/search.html">
+        영화 탐색
+      </a>
+
+      <!-- 커뮤니티 -->
+      <a href="post/list.html">
+        커뮤니티
+      </a>
+
+    </nav>
+
+  </header>
+
+
+  <main>
+
+    <!-- =========================
+         AI 맞춤 영화 추천 배너
+    ========================== -->
+    <a
+      href="#"
+      class="ai-banner"
+    >
+
+      <h2>
+        AI 맞춤 영화 추천
+      </h2>
+
+      <p>
+        비 오는 날 혼자 보기 좋은 SF 영화
+      </p>
+
+    </a>
+
+
+    <!-- =========================
+         실시간 인기 영화 TOP 5
+    ========================== -->
+    <section class="main-section">
+
+      <h2>
+        실시간 인기 영화 TOP 5
+      </h2>
+
+      <div class="movie-list">
+        영화 목록 영역
+      </div>
+
+    </section>
+
+
+    <!-- =========================
+         커뮤니티 실시간 인기글
+    ========================== -->
+    <section class="main-section popular-posts">
+
+      <h2>
+        커뮤니티 실시간 인기글
+      </h2>
+
+      <div>
+
+        <a href="post/detail.html">
+          [영화리뷰] 엔딩 팽이 씬에 대한 3가지 해석
+        </a>
+
+      </div>
+
+      <div>
+
+        <a href="post/detail.html">
+          [영화추천] 주말에 볼 SF 영화 추천해주세요
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+package project;
+
+/** Board list rendered separately so every configured board is reachable from the list page. */
+final class BoardListPage {
+    private BoardListPage() {}
+
+    static String render() {
+        return "<!doctype html><html lang='ko'><head><meta charset='utf-8'>"
+            + "<meta name='viewport' content='width=device-width,initial-scale=1'><title>게시판 | CINEHUB</title>"
+            + "<link rel='stylesheet' href='/static/assets/css/style.css'><link rel='stylesheet' href='/static/assets/css/widgets.css'>"
+            + "<link rel='stylesheet' href='/static/assets/css/responsive.css'><link rel='stylesheet' href='/static/assets/css/post-layout.css'></head><body>"
+            + "<header class='main-header header-style-1 font-heading'><div class='header-top'></div><div class='header-sticky'><div class='container align-self-center'>"
+            + "<div class='main-nav'><nav><ul class='main-menu'><li><a href='/'>홈</a></li><li><a href='/movies'>영화 추천</a></li><li><a href='/about-us'>소개</a></li><li><a href='/posts'>게시글</a></li><li><a href='/mypage'>마이페이지</a></li><li id='navNotifications' style='display:none'><a href='/notifications'>알림</a></li><li id='navAdmin' style='display:none'><a href='/admin'>관리자</a></li></ul></nav></div>"
+            + "<div class='header-tools'><ul class='list-inline'><li class='list-inline-item'><a href='/new-post'>글쓰기</a></li><li class='list-inline-item' id='navLogin'><a href='/login'>로그인</a></li><li class='list-inline-item' id='navRegister'><a href='/register'>회원가입</a></li><li class='list-inline-item' id='navUser' style='display:none'><a href='/mypage' id='navMyPage'></a></li><li class='list-inline-item' id='navLogout' style='display:none'><a href='#'>로그아웃</a></li></ul></div></div></div></header>"
+            + "<main><div class='container'><div class='widget-header-3'><h1 class='widget-title'>게시판</h1></div><nav class='board-links' id='boardLinks'><a class='active' href='/posts'>전체</a></nav>"
+            + "<div id='posts'><p class='muted'>게시글을 불러오는 중입니다.</p></div><nav class='pagination' id='postPagination'></nav></div></main>"
+            + "<footer class='main-footer'><div class='container'><p class='text-center text-muted'>CINEHUB · 영화 탐색 커뮤니티</p></div></footer>"
+            + "<script>function safe(v){var d=document.createElement('div');d.textContent=v||'';return d.innerHTML;}"
+            + "var allPosts=[],page=1;function draw(){var pages=Math.max(1,Math.ceil(allPosts.length/10));document.getElementById('posts').innerHTML=allPosts.slice((page-1)*10,page*10).map(function(p){return '<a class=\"post-card\" href=\"/post/'+p.id+'\"><h3>'+safe(p.title)+'</h3><p>'+safe(p.content).slice(0,140)+'</p><small>'+safe(p.author)+' · '+safe(p.createdAt)+'</small></a>';}).join('')||'<p class=\"muted\">게시글이 없습니다.</p>';document.getElementById('postPagination').innerHTML=Array.from({length:pages},function(_,i){return '<button class=\"page-number '+(page===i+1?'active':'')+'\">'+(i+1)+'</button>';}).join('');Array.prototype.forEach.call(document.querySelectorAll('#postPagination button'),function(b,i){b.onclick=function(){page=i+1;draw();};});}"
+            + "fetch('/api/boards').then(function(r){return r.json();}).then(function(d){document.getElementById('boardLinks').innerHTML='<a class=\"active\" href=\"/posts\">전체</a>'+(d.boards||[]).map(function(b){return '<a href=\"/category/'+b.id+'\">'+safe(b.name)+'</a>';}).join('');});fetch('/api/posts').then(function(r){return r.json();}).then(function(d){allPosts=d.posts||[];draw();});"
+            + "fetch('/api/me').then(function(r){return r.ok?r.json():null;}).then(function(u){if(!u)return;document.getElementById('navLogin').style.display='none';document.getElementById('navRegister').style.display='none';document.getElementById('navUser').style.display='inline-block';document.getElementById('navLogout').style.display='inline-block';document.getElementById('navMyPage').textContent=u.nickname+'님';document.getElementById('navNotifications').style.display='list-item';if(u.role==='ADMIN')document.getElementById('navAdmin').style.display='list-item';});document.getElementById('navLogout').onclick=function(e){e.preventDefault();fetch('/api/auth/logout',{method:'POST'}).then(function(){location.href='/';});};</script></body></html>";
+    }
+}

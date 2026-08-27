@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 대시보드 | CINEHUB</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- 홈 이동 -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB ADMIN</a>
+    </h1>
+  </header>
+
+  <main>
+
+    <div class="admin-container">
+
+      <!-- 관리자 메뉴 -->
+      <nav class="admin-menu">
+        <a href="dashboard.html">대시보드</a>
+        <a href="users.html">회원 관리</a>
+        <a href="reports.html">신고 관리</a>
+        <a href="boards.html">게시판 관리</a>
+        <a href="notices.html">공지사항 관리</a>
+        <div class="admin-logout">
+          <button
+            type="button"
+            onclick="if (confirm('로그아웃하시겠습니까?')) {
+                location.href='../index.html';}">
+            로그아웃
+      </nav>
+
+      <!-- 관리자 메인 -->
+      <section class="admin-content">
+        <h2>관리자 대시보드</h2>
+
+        <!-- 요약 정보 -->
+        <div class="summary">
+
+          <div>
+            <h3>회원 수</h3>
+            <p>회원 수 표시 영역</p>
+          </div>
+
+          <div>
+            <h3>게시글 수</h3>
+            <p>게시글 수 표시 영역</p>
+          </div>
+
+          <div>
+            <h3>미처리 신고</h3>
+            <p>신고 건수 표시 영역</p>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

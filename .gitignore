@@ -1,0 +1,6 @@
+out/
+*.log
+*.db
+.env
+*.class
+lib/*.jar

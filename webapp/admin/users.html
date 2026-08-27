@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원 관리 | CINEHUB ADMIN</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- 홈 이동 -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB ADMIN</a>
+    </h1>
+  </header>
+
+  <main>
+
+    <div class="admin-container">
+
+      <!-- 관리자 메뉴 -->
+      <nav class="admin-menu">
+        <a href="dashboard.html">대시보드</a>
+        <a href="users.html">회원 관리</a>
+        <a href="reports.html">신고 관리</a>
+        <a href="boards.html">게시판 관리</a>
+        <a href="notices.html">공지사항 관리</a>
+        <div class="admin-logout">
+          <button
+            type="button"
+            onclick="if (confirm('로그아웃하시겠습니까?')) {
+                location.href='../index.html';}">
+            로그아웃
+      </nav>
+
+      <!-- 회원 관리 영역 -->
+      <section class="admin-content">
+
+        <h2>회원 관리</h2>
+
+        <!-- 회원 검색 -->
+        <div class="user-search">
+
+          <input
+            type="text"
+            id="user-search-input"
+            placeholder="아이디 또는 닉네임을 검색하세요"
+          >
+
+          <button
+            type="button"
+            id="user-search-button"
+          >
+            검색
+          </button>
+
+        </div>
+
+
+        <!-- 회원 목록 -->
+        <table class="user-table">
+
+          <thead>
+            <tr>
+              <th>회원번호</th>
+              <th>아이디</th>
+              <th>닉네임</th>
+              <th>이메일</th>
+              <th>권한</th>
+              <th>상태</th>
+              <th>관리</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <!-- 활성 회원 -->
+            <tr data-user-id="1">
+
+              <td>1</td>
+              <td>user01</td>
+              <td>유저A</td>
+              <td>user01@test.com</td>
+              <td>USER</td>
+
+              <td class="user-status">
+                ACTIVE
+              </td>
+
+              <td>
+                <select
+                  class="user-status-select"
+                  aria-label="회원 상태 변경"
+                >
+                  <option value="">관리 선택</option>
+                  <option value="ACTIVE">활성화</option>
+                  <option value="SUSPENDED">정지</option>
+                </select>
+              </td>
+
+            </tr>
+
+
+            <!-- 정지 회원 -->
+            <tr data-user-id="2">
+
+              <td>2</td>
+              <td>user02</td>
+              <td>유저B</td>
+              <td>user02@test.com</td>
+              <td>USER</td>
+
+              <td class="user-status">
+                SUSPENDED
+              </td>
+
+              <td>
+                <select
+                  class="user-status-select"
+                  aria-label="회원 상태 변경"
+                >
+                  <option value="">관리 선택</option>
+                  <option value="ACTIVE">활성화</option>
+                  <option value="SUSPENDED">정지</option>
+                </select>
+              </td>
+
+            </tr>
+
+
+            <!-- 탈퇴 회원 -->
+            <tr data-user-id="3">
+
+              <td>3</td>
+              <td>user03</td>
+              <td>유저C</td>
+              <td>user03@test.com</td>
+              <td>USER</td>
+
+              <td class="user-status">
+                WITHDRAWN
+              </td>
+
+              <td>
+                <select
+                  class="user-status-select"
+                  aria-label="회원 상태 변경"
+                  disabled
+                >
+                  <option value="">관리 불가</option>
+                </select>
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+
+        <!-- 페이징 -->
+        <div class="pagination">
+          <a href="#">이전</a>
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">다음</a>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- 회원 관리 JavaScript -->
+  <script src="../js/admin-users.js"></script>
+
+</body>
+</html>

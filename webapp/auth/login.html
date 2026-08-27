@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인 | CINEHUB</title>
+
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- 홈 이동 -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB</a>
+    </h1>
+  </header>
+
+  <main>
+
+    <!-- 로그인 영역 -->
+    <section class="login-container">
+
+      <h2>로그인</h2>
+
+      <form>
+
+        <!-- 아이디 -->
+        <div class="input-group">
+          <input
+            type="text"
+            id="login-id"
+            name="loginId"
+            placeholder="아이디"
+          >
+        </div>
+
+        <!-- 비밀번호 -->
+        <div class="input-group">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="비밀번호"
+          >
+        </div>
+
+        <!-- 자동 로그인 -->
+        <div class="auto-login">
+          <label>
+            <input type="checkbox" name="autoLogin">
+            자동 로그인
+          </label>
+        </div>
+
+        <!-- 로그인 -->
+        <button type="submit" class="login-button">
+          로그인
+        </button>
+
+      </form>
+
+      <!-- 회원가입 -->
+      <div class="register-link">
+        <a href="register.html">회원가입</a>
+      </div>
+
+    </section>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>공지사항 관리 | CINEHUB ADMIN</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       상단
+  ========================== -->
+  <header>
+    <h1>
+      <a href="../index.html">CINEHUB ADMIN</a>
+    </h1>
+  </header>
+
+
+  <main>
+
+    <div class="admin-container">
+
+      <!-- =========================
+           관리자 메뉴
+      ========================== -->
+      <nav class="admin-menu">
+
+        <a href="dashboard.html">
+          대시보드
+        </a>
+
+        <a href="users.html">
+          회원 관리
+        </a>
+
+        <a href="reports.html">
+          신고 관리
+        </a>
+
+        <a href="boards.html">
+          게시판 관리
+        </a>
+
+        <a href="notices.html">
+          공지사항 관리
+        </a>
+
+        <div class="admin-logout">
+          <button
+            type="button"
+            onclick="if (confirm('로그아웃하시겠습니까?')) {
+                location.href='../index.html';}">
+            로그아웃
+
+      </nav>
+
+
+      <!-- =========================
+           공지사항 관리
+      ========================== -->
+      <section class="admin-content">
+
+        <!-- 공지사항 목록 상단 -->
+        <div class="admin-section-header">
+
+          <h2>공지사항 관리</h2>
+
+          <!-- 공지사항 작성 -->
+          <button
+            type="button"
+            onclick="location.href='notice-form.html'"
+          >
+            공지사항 작성
+          </button>
+
+        </div>
+
+
+        <!-- =========================
+             공지사항 목록
+        ========================== -->
+        <table class="notice-table">
+
+          <thead>
+
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              <th>상단 고정</th>
+              <th>작성일</th>
+              <th>관리</th>
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <!--
+              화면 확인용 임시 데이터
+
+              추후 Java 백엔드 + Oracle DB 연동 시
+              Oracle에서 조회한 공지사항 목록을
+              이 영역에 반복 출력하도록 변경
+            -->
+            <tr data-notice-id="1">
+
+              <!-- 공지사항 번호 -->
+              <td>
+                1
+              </td>
+
+
+              <!-- 공지사항 제목 -->
+              <td class="notice-title">
+                CINEHUB 이용 안내
+              </td>
+
+
+              <!-- 상단 고정 여부 -->
+              <td>
+                고정
+              </td>
+
+
+              <!-- 작성일 -->
+              <td>
+                -
+              </td>
+
+
+              <!-- 관리 -->
+              <td class="manage-actions">
+
+                <!-- 공지사항 수정 -->
+                <button
+                  type="button"
+                  onclick="location.href='notice-edit.html'"
+                >
+                  수정
+                </button>
+
+
+                <!-- 공지사항 삭제 -->
+                <button
+                  type="button"
+                  onclick="confirm('공지사항을 삭제하시겠습니까?')"
+                >
+                  삭제
+                </button>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+
+        <!-- =========================
+             데이터가 없을 경우
+        ========================== -->
+
+        <!--
+          추후 Oracle DB 조회 결과가 없을 경우 표시
+
+          <div class="empty-message">
+            등록된 공지사항이 없습니다.
+          </div>
+        -->
+
+
+        <!-- =========================
+             페이징
+        ========================== -->
+        <div class="pagination">
+
+          <a href="#">
+            이전
+          </a>
+
+          <a href="#">
+            1
+          </a>
+
+          <a href="#">
+            2
+          </a>
+
+          <a href="#">
+            3
+          </a>
+
+          <a href="#">
+            다음
+          </a>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
