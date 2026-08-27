@@ -10,7 +10,7 @@
 
 CINEHUB는 제목 검색뿐 아니라 **“우주를 떠도는 과학자”**, **“비 오는 날 혼자 보기 좋은 영화”**처럼 자연어로 영화를 찾고, 영화 감상과 추천을 커뮤니티에서 공유하는 서비스입니다.
 
-JDK `HttpServer`와 JDBC로 구현했습니다. Oracle XE가 서비스 데이터를 저장하고, `JavaRagService`가 OpenAI Embeddings와 Qdrant REST API를 직접 호출해 의미 기반 영화 검색을 제공합니다.
+Spring Boot 없이 JDK `HttpServer`와 JDBC로 구현했습니다. Oracle XE가 서비스 데이터를 저장하고, `JavaRagService`가 OpenAI Embeddings와 Qdrant REST API를 직접 호출해 의미 기반 영화 검색을 제공합니다.
 
 ## 주요 기능
 
@@ -78,7 +78,9 @@ flowchart LR
 
 ![CINEHUB ERD](docs/erd.png)
 
-
+1. [dbdiagram.io](https://dbdiagram.io/)를 엽니다.
+2. [ERD.dbml](docs/ERD.dbml)의 전체 내용을 붙여 넣습니다.
+3. 배치를 조정한 뒤 PNG 또는 PDF로 내보냅니다.
 
 ```mermaid
 erDiagram
@@ -153,24 +155,37 @@ run.ps1               컴파일·서버 실행 스크립트
 
 ## 팀원 소개
 
-> 아래 항목을 팀원 정보에 맞게 수정해 주세요.
+| 이름 | 역할 | GitHub |
+| --- | --- | --- |
+| 노건우 | 팀장 / AI | [asdg441](https://github.com/asdg441) |
+| 이연화 | Frontend / DB 설계 | [dusghk0802](https://github.com/dusghk0802) |
+| 조문희 | Backend / API | [munhee777](https://github.com/munhee777) |
 
-| 이름 | 역할 | 담당 기능 | GitHub |
-| --- | --- | --- | --- |
-| 노건우 | 팀장 / AI | • 프로젝트 총괄 및 WBS 일정 관리
+### 노건우 · 팀장 / AI
 
-• TMDB 데이터 수집 및 임베딩 파이프라인 구축
+- 프로젝트 총괄 및 WBS 관리
+- TMDB API 연동과 영화 데이터 파이프라인 구축
+- Qdrant 벡터 DB 기반 줄거리 시맨틱 검색 및 추천 API 개발
 
-• Qdrant 벡터 DB 기반 영화 의미 검색 & 유사 영화 추천 API 개발 | [GitHub](https://github.com/asdg441) |
-| 이연화 | Frontend / DB설계 | 담당 기능 입력 | [GitHub](https://github.com/dusghk0802) |
-| 조문희 | Backend /  | 담당 기능 입력 | [GitHub](https://github.com/munhee777) |
+### 이연화 · Frontend / DB 설계
+
+- Oracle DB 모델링 및 ERD·DDL 설계
+- UI/UX 와이어프레임 기획
+- 메인, 영화 검색, 커뮤니티, 관리자 웹 UI/UX 구현
+
+### 조문희 · Backend / API
+
+- Java 세션·CSRF 기반 회원 인증 및 인가 시스템 구현
+- 커뮤니티(게시글·댓글·좋아요) 및 영화 추천 REST API 개발
+- 관리자(회원 관리, 신고 처리, 감사 로그) API 구현
 
 ## 한 줄 회고
 
+> 팀원별 한 줄 회고를 작성해 주세요.
 
-- 노건우: “이번 프로젝트에서 배운 점 또는 느낀 점을 한 줄로 작성합니다.”
-- 이연화: “이번 프로젝트에서 배운 점 또는 느낀 점을 한 줄로 작성합니다.”
-- 조문희: “이번 프로젝트에서 배운 점 또는 느낀 점을 한 줄로 작성합니다.”
+- **노건우**: “한 줄 회고를 작성해 주세요.”
+- **이연화**: “한 줄 회고를 작성해 주세요.”
+- **조문희**: “한 줄 회고를 작성해 주세요.”
 
 ## 보안 주의
 
