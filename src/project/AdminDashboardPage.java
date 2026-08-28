@@ -6,7 +6,7 @@ final class AdminDashboardPage {
 
     static String render() {
         return "<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>관리자 | CINEHUB</title>"
-            + "<link rel='stylesheet' href='/static/assets/css/style.css'><link rel='stylesheet' href='/static/assets/css/widgets.css'><link rel='stylesheet' href='/static/assets/css/responsive.css'></head><body>"
+            + "<link rel='stylesheet' href='/static/assets/css/style.css'><link rel='stylesheet' href='/static/assets/css/widgets.css'><link rel='stylesheet' href='/static/assets/css/responsive.css'><script src='/static/assets/js/admin-report-enhanced.js' defer></script></head><body>"
             + "<header class='main-header header-style-1'><div class='header-top'></div><div class='header-sticky'><div class='container align-self-center'><div class='main-nav'><nav><ul class='main-menu'><li><a href='/'>홈</a></li><li><a href='/movies'>영화 추천</a></li><li><a href='/posts'>게시글</a></li><li><a href='/admin'>관리자</a></li></ul></nav></div></div></div></header>"
             + "<main><div class='container admin-dashboard'><section class='hero admin-hero'><span class='muted'>ADMIN</span><h1>관리자 대시보드</h1><div id='stats'>통계를 불러오는 중입니다.</div><p><a class='btn-main' href='/admin/logs'>관리 로그 보기</a></p></section>"
             + "<section class='admin-section'><h2>회원 관리</h2><div class='admin-search'><input id='userQuery' placeholder='닉네임 또는 아이디 검색'><button id='userSearch'>검색</button></div><div id='users'></div><nav class='pagination' id='userPaging'></nav></section>"

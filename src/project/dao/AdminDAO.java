@@ -165,6 +165,20 @@ public class AdminDAO {
         }
     }
 
+    public ReportDTO getReportById(long reportId) {
+        String sql = "SELECT r.report_id, r.target_type, r.target_id, r.reporter_id, r.reason, r.status, r.created_at, u.nickname "
+                + "FROM reports r JOIN users u ON r.reporter_id = u.user_id WHERE r.report_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setLong(1, reportId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.next() ? mapResultSetToReportDTO(rs) : null;
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+    }
+
     public boolean updateTargetStatus(String targetType, long targetId, String targetStatus) {
         String tableName = "POST".equalsIgnoreCase(targetType) ? "posts" : "comments";
         String idColumn = "POST".equalsIgnoreCase(targetType) ? "post_id" : "comment_id";
