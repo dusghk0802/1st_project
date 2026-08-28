@@ -60,6 +60,26 @@ public final class OpenAiMovieAdvisor {
         return new Recommendation(ids.contains(id) ? id : ids.get(0), reason);
     }
 
+    /** Chooses from candidates using titles and synopses, so preference recommendations consider story as well as genre. */
+    public Recommendation chooseFromDetailedCandidates(String request, List<Long> ids, List<String> titles, List<String> overviews) throws Exception {
+        StringBuilder candidates = new StringBuilder();
+        for (int i = 0; i < ids.size(); i++) {
+            String overview = i < overviews.size() ? overviews.get(i) : "";
+            if (overview.length() > 350) overview = overview.substring(0, 350);
+            candidates.append(ids.get(i)).append('|').append(titles.get(i)).append(" | 줄거리: ").append(overview).append('\n');
+        }
+        String prompt = "사용자의 영화 취향 정보입니다. " + request + "\n"
+                + "제목뿐 아니라 줄거리의 갈등, 분위기, 소재, 감정선을 함께 비교해 후보 중 가장 어울리는 한 편을 선택하세요. "
+                + "싫어한 영화와 비슷한 줄거리나 소재는 피하세요. "
+                + "Return only: numeric_id|two concise Korean sentences explaining the recommendation.\n" + candidates;
+        String response = responseText(prompt);
+        Matcher match = Pattern.compile("\\d+").matcher(response);
+        if (!match.find()) throw new IllegalStateException("OpenAI did not return a movie id");
+        long id = Long.parseLong(match.group());
+        String reason = response.substring(match.end()).replaceFirst("^[|\\s:.-]+", "").trim();
+        return new Recommendation(ids.contains(id) ? id : ids.get(0), reason);
+    }
+
     public String explainSearch(String request, List<String> titles) throws Exception {
         String prompt = "A user searched for movies with this request: " + request + "\n"
                 + "These are the matched movie titles: " + String.join(", ", titles) + "\n"
