@@ -71,7 +71,7 @@ public final class OpenAiMovieAdvisor {
         String prompt = "사용자의 영화 취향 정보입니다. " + request + "\n"
                 + "제목뿐 아니라 줄거리의 갈등, 분위기, 소재, 감정선을 함께 비교해 후보 중 가장 어울리는 한 편을 선택하세요. "
                 + "싫어한 영화와 비슷한 줄거리나 소재는 피하세요. "
-                + "Return only: numeric_id|two concise Korean sentences explaining the recommendation.\n" + candidates;
+                + "Return only: numeric_id|exactly two Korean sentences. The first sentence must connect a selected story, theme, or mood preference to this movie. The second sentence must name a specific plot, emotional, or atmosphere element in this movie. Never use generic wording such as '오늘의 추천입니다'.\n" + candidates;
         String response = responseText(prompt);
         Matcher match = Pattern.compile("\\d+").matcher(response);
         if (!match.find()) throw new IllegalStateException("OpenAI did not return a movie id");
