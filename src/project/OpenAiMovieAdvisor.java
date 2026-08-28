@@ -29,6 +29,20 @@ public final class OpenAiMovieAdvisor {
             return reason;
         }
     }
+
+    /** A title selected by the model before its public metadata is fetched from TMDB. */
+    public static final class TitleRecommendation {
+        private final String title;
+        private final String reason;
+
+        public TitleRecommendation(String title, String reason) {
+            this.title = title;
+            this.reason = reason;
+        }
+
+        public String getTitle() { return title; }
+        public String getReason() { return reason; }
+    }
     private static final HttpClient HTTP = HttpClient.newHttpClient();
     private final String apiKey = env("OPENAI_API_KEY", "");
     private final String model = env("OPENAI_MOVIE_MODEL", "gpt-4o-mini");
@@ -58,6 +72,22 @@ public final class OpenAiMovieAdvisor {
         long id = Long.parseLong(match.group());
         String reason = response.substring(match.end()).replaceFirst("^[|\\s:.-]+", "").trim();
         return new Recommendation(ids.contains(id) ? id : ids.get(0), reason);
+    }
+
+    /** Lets GPT select a movie from broad film knowledge; the caller resolves public metadata through TMDB. */
+    public TitleRecommendation recommendFromTaste(String tasteContext) throws Exception {
+        String prompt = "Recommend exactly one real, feature-length movie for this viewer. "
+                + "Taste context: " + tasteContext + "\n"
+                + "Consider story, theme, conflict, mood, and emotional arc. Avoid films similar to the disliked examples. "
+                + "Return only: official movie title|exactly two Korean sentences. Sentence one must connect a liked story or mood to the choice. "
+                + "Sentence two must cite a concrete story, emotional, or atmosphere element from the choice. Do not use generic wording.";
+        String response = responseText(prompt).trim();
+        int divider = response.indexOf('|');
+        if (divider < 1) throw new IllegalStateException("OpenAI did not return a movie title");
+        String title = response.substring(0, divider).trim();
+        String reason = response.substring(divider + 1).trim();
+        if (title.isBlank() || reason.isBlank()) throw new IllegalStateException("OpenAI returned an incomplete recommendation");
+        return new TitleRecommendation(title, reason);
     }
 
     /** Chooses from candidates using titles and synopses, so preference recommendations consider story as well as genre. */

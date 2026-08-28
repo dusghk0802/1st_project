@@ -33,17 +33,26 @@ function bindTasteQuiz() {
   }
 
   function recommend() {
+    var result = document.getElementById('tasteResult');
+    result.style.display = 'block';
+    result.innerHTML = '<p class="muted">GPT가 영화와 추천 이유를 준비하는 중입니다.</p>';
     fetch('/api/taste-quiz/recommend', {
       method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: 'likes=' + encodeURIComponent(likes.join(',')) + '&dislikes=' + encodeURIComponent(dislikes.join(',')) + '&unknowns=' + encodeURIComponent(unknowns.join(','))
     }).then(function (response) { return response.json(); }).then(function (data) {
-      var result = document.getElementById('tasteResult'), movie = (data.results || [])[0];
-      result.style.display = 'block';
-      if (data.error || !movie) { result.innerHTML = '<p class="muted">' + safe(data.error || '추천 결과를 찾지 못했습니다.') + '</p>'; return; }
+      var movie = (data.results || [])[0];
+      if (data.error || !movie) { showRetry(data.error || '추천 결과를 찾지 못했습니다.'); return; }
       result.innerHTML = '<article class="post-card taste-result-card">' + (movie.poster ? '<img src="' + safe(movie.poster) + '" alt="' + safe(movie.title) + '">' : '')
         + '<div><span class="muted">GPT TASTE PICK</span><h2>' + safe(movie.title) + '</h2><p>' + safe(movie.reason || '선택한 취향을 바탕으로 추천한 작품입니다.') + '</p>'
-        + '<a class="btn-main balance-detail-link" href="/movies/' + movie.id + '">영화 상세·한줄평 보기</a></div></article>';
-    }).catch(function () { document.getElementById('tasteResult').innerHTML = '<p class="muted">추천을 불러오지 못했습니다.</p>'; });
+        + '<a class="btn-main balance-detail-link" target="_blank" rel="noopener" href="' + safe(movie.tmdbUrl || 'https://www.themoviedb.org/') + '">TMDB 영화 정보 보기</a></div></article>';
+    }).catch(function () { showRetry('추천을 불러오지 못했습니다.'); });
+  }
+
+  function showRetry(message) {
+    var result = document.getElementById('tasteResult');
+    result.style.display = 'block';
+    result.innerHTML = '<p class="muted">' + safe(message) + '</p><button type="button" class="btn-main" id="tasteRetryButton">다시 추천받기</button>';
+    document.getElementById('tasteRetryButton').onclick = recommend;
   }
 
   start.onclick = function () {
