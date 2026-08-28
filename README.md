@@ -1,5 +1,15 @@
 # CINEHUB
 
+> 최신 반영: 로그인한 회원만 영화·커뮤니티를 이용하며, 자연어 영화 추천은 **Oracle DB 키워드 검색 + Qdrant RAG**로 후보를 찾은 뒤 **OpenAI**가 최종 한 편과 추천 이유를 선택합니다.
+
+## 최근 개선 사항
+
+- 로그인하지 않은 사용자의 게시글·영화 추천·영화 상세 접근을 차단
+- 게시글 조회수는 회원별 최초 1회만 증가
+- 게시글 목록과 홈 인기글에 조회수·좋아요 수 표시
+- 자연어 영화 추천: Oracle 검색과 Qdrant 의미 검색 결과를 합쳐 후보 10편을 만들고, OpenAI가 최종 추천과 이유를 생성
+- 랜덤 추천: Oracle 무작위 후보 30편 중 OpenAI가 한 편을 골라 추천 이유와 함께 표시
+
 > 영화 탐색 · AI 의미 검색(RAG) · 영화 커뮤니티를 하나로 연결한 Java 웹 애플리케이션
 
 ![Java](https://img.shields.io/badge/Java-17%2B-ED8B00?logo=openjdk&logoColor=white)
@@ -74,10 +84,13 @@ flowchart LR
 
 ## ERD
 
+현재 ERD는 제공한 이미지와 같은 테이블 관계를 기준으로 작성했습니다. 전체 dbdiagram.io 코드 파일은 [ERD.dbml](docs/ERD.dbml)입니다.
 
 ![CINEHUB ERD](docs/erd.png)
 
-
+1. [dbdiagram.io](https://dbdiagram.io/)를 엽니다.
+2. [ERD.dbml](docs/ERD.dbml)의 전체 내용을 붙여 넣습니다.
+3. 배치를 조정한 뒤 PNG 또는 PDF로 내보냅니다.
 
 ```mermaid
 erDiagram

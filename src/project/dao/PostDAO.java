@@ -87,8 +87,12 @@ public class PostDAO {
     /**
      * 3. 게시글 상세 보기 (조회수 1 증가 포함)
      */
-    public Post getPostById(long postId) {
-        increaseViewCount(postId);
+    public Post getPostById(long postId, Long viewerId) {
+        if (viewerId == null) {
+            increaseViewCount(postId);
+        } else {
+            increaseViewCountOnce(postId, viewerId);
+        }
 
         String sql = "SELECT p.post_id, p.board_id, p.author_id, p.title, p.content, " +
                 "p.view_count, p.like_count, p.status, p.created_at, u.nickname, " +
@@ -258,6 +262,21 @@ public class PostDAO {
             }
         } catch (SQLException e) {
             return false;
+        }
+    }
+
+    /** Counts one view per logged-in user for each post. */
+    private void increaseViewCountOnce(long postId, long userId) {
+        String insert = "INSERT INTO post_views (post_id, user_id) VALUES (?, ?)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(insert)) {
+            pstmt.setLong(1, postId);
+            pstmt.setLong(2, userId);
+            if (pstmt.executeUpdate() == 1) {
+                increaseViewCount(postId);
+            }
+        } catch (SQLException ignored) {
+            // The primary-key duplicate means this member already opened this post.
         }
     }
 

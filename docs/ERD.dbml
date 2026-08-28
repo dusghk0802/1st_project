@@ -117,6 +117,12 @@ Table post_likes {
   created_at timestamp [not null]
 }
 
+Table post_views {
+  post_id number [pk]
+  user_id number [pk]
+  viewed_at timestamp [not null, note: '회원별 게시글 최초 조회 시 생성']
+}
+
 Table comments {
   comment_id number [pk, increment]
   post_id number [not null]
@@ -170,6 +176,8 @@ Ref: posts.author_id > users.user_id
 Ref: posts.movie_id > movies.movie_id
 Ref: post_likes.post_id > posts.post_id
 Ref: post_likes.user_id > users.user_id
+Ref: post_views.post_id > posts.post_id
+Ref: post_views.user_id > users.user_id
 Ref: comments.post_id > posts.post_id
 Ref: comments.author_id > users.user_id
 Ref: comments.parent_comment_id > comments.comment_id
