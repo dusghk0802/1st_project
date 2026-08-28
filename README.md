@@ -1,5 +1,6 @@
 # CINEHUB
 
+> 최신 반영: 로그인한 회원만 영화·커뮤니티를 이용하며, 자연어 영화 추천은 **Oracle DB 키워드 검색 + Qdrant RAG**로 후보를 찾은 뒤 **OpenAI**가 최종 한 편과 추천 이유를 선택합니다.
 
 ## 최근 개선 사항
 
@@ -19,7 +20,7 @@
 
 CINEHUB는 제목 검색뿐 아니라 **“우주를 떠도는 과학자”**, **“비 오는 날 혼자 보기 좋은 영화”**처럼 자연어로 영화를 찾고, 영화 감상과 추천을 커뮤니티에서 공유하는 서비스입니다.
 
-JDK HttpServer와 JDBC로 구현했습니다. Oracle XE가 서비스 데이터를 저장하고, `JavaRagService`가 OpenAI Embeddings와 Qdrant REST API를 직접 호출해 의미 기반 영화 검색을 제공합니다.
+Spring Boot 없이 JDK `HttpServer`와 JDBC로 구현했습니다. Oracle XE가 서비스 데이터를 저장하고, `JavaRagService`가 OpenAI Embeddings와 Qdrant REST API를 직접 호출해 의미 기반 영화 검색을 제공합니다.
 
 ## 주요 기능
 
@@ -84,10 +85,13 @@ flowchart LR
 
 ## ERD
 
+현재 ERD는 제공한 이미지와 같은 테이블 관계를 기준으로 작성했습니다. 전체 dbdiagram.io 코드 파일은 [ERD.dbml](docs/ERD.dbml)입니다.
 
 ![CINEHUB ERD](docs/erd.png)
 
-
+1. [dbdiagram.io](https://dbdiagram.io/)를 엽니다.
+2. [ERD.dbml](docs/ERD.dbml)의 전체 내용을 붙여 넣습니다.
+3. 배치를 조정한 뒤 PNG 또는 PDF로 내보냅니다.
 
 ```mermaid
 erDiagram
@@ -144,10 +148,17 @@ erDiagram
 ```powershell
 [Environment]::SetEnvironmentVariable('DB_PASSWORD', 'Oracle_비밀번호', 'User')
 [Environment]::SetEnvironmentVariable('OPENAI_API_KEY', 'OpenAI_API_키', 'User')
+[Environment]::SetEnvironmentVariable('TMDB_READ_TOKEN', 'TMDB_읽기_토큰', 'User')
 powershell -ExecutionPolicy Bypass -File .\run.ps1 -OraclePassword "Oracle_비밀번호"
 ```
 
 실행 후 `http://127.0.0.1:8088`로 접속합니다.
+
+## 32강 밸런스 게임
+
+- 로그인한 회원은 영화 DB에서 무작위로 구성한 32편의 대진을 진행할 수 있습니다.
+- 선택을 반복해 최종 우승작을 정한 뒤 **비슷한 영화 찾기**를 누르면, 서버가 TMDB Similar Movies API를 호출해 유사 작품을 보여 줍니다.
+- TMDB 읽기 토큰은 브라우저에 노출하지 않고 `TMDB_READ_TOKEN` 환경 변수로 서버에만 설정합니다.
 
 ## 프로젝트 구조
 
@@ -183,18 +194,16 @@ run.ps1               컴파일·서버 실행 스크립트
 ### 조문희 · Backend / API
 
 - Java 세션·CSRF 기반 회원 인증 및 인가 시스템 구현
-- 커뮤니티(게시글·댓글·좋아요)
+- 커뮤니티(게시글·댓글·좋아요) 및 영화 추천 REST API 개발
 - 관리자(회원 관리, 신고 처리, 감사 로그) API 구현
 
 ## 한 줄 회고
 
 > 팀원별 한 줄 회고를 작성해 주세요.
 
-- **노건우**: “팀장으로서 일정과 이슈를 관리하며 TMDB 데이터 파이프라인부터 의미 기반 영화 추천까지 팀원들과 함께 완성도 높게 끝마쳐 뿌듯합니다.”
-  
-- **이연화**: “첫 프로젝트를 통해 협업의 중요성을 배우고, 화면 구현과 DB 설계를 진행하면서 사용자 기능과 데이터 구조가 연결되는 과정을 이해할 수 있었다.”
-  
-- **조문희**: “처음 프로젝트 진행하며 어려운 점도 있었지만 협업을 통해 극복해나가 뿌듯했습니다.”
+- **노건우**: “한 줄 회고를 작성해 주세요.”
+- **이연화**: “한 줄 회고를 작성해 주세요.”
+- **조문희**: “한 줄 회고를 작성해 주세요.”
 
 ## 보안 주의
 

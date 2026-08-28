@@ -14,6 +14,14 @@ $userOpenAiKey = [Environment]::GetEnvironmentVariable('OPENAI_API_KEY', 'User')
 if (-not [string]::IsNullOrWhiteSpace($userOpenAiKey)) {
     $env:OPENAI_API_KEY = $userOpenAiKey
 }
+$userTmdbToken = [Environment]::GetEnvironmentVariable('TMDB_READ_TOKEN', 'User')
+if (-not [string]::IsNullOrWhiteSpace($userTmdbToken)) {
+    $env:TMDB_READ_TOKEN = $userTmdbToken
+}
+$userTmdbKey = [Environment]::GetEnvironmentVariable('TMDB_API_KEY', 'User')
+if (-not [string]::IsNullOrWhiteSpace($userTmdbKey)) {
+    $env:TMDB_API_KEY = $userTmdbKey
+}
 $classpath = 'out;lib\ojdbc11-23.5.0.24.07.jar;lib\slf4j-api-2.0.13.jar;lib\slf4j-simple-2.0.13.jar'
 $javaExe = 'C:\Program Files\Java\jdk-11.0.12\bin\java.exe'
 if (-not (Test-Path $javaExe)) { $javaExe = 'java' }
