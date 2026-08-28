@@ -17,8 +17,8 @@ function bindTasteQuiz() {
   function render() {
     var choice = choices[current], box = document.getElementById('tastePair'), progress = document.getElementById('tasteProgress');
     if (!choice) { progress.textContent = '선택 완료! GPT가 당신의 취향에 맞는 영화를 고르는 중입니다.'; box.innerHTML = ''; recommend(); return; }
-    progress.textContent = (current + 1) + ' / ' + choices.length + ' · ' + choice.genre + ' 장르';
-    box.innerHTML = '<section class="taste-pair"><h2>' + safe(choice.genre) + '</h2><p class="muted">이 영화를 어떻게 느끼시나요?</p><div class="taste-movies taste-movies-single">' + card(choice.movie) + '</div></section>';
+    progress.textContent = (current + 1) + ' / ' + choices.length;
+    box.innerHTML = '<section class="taste-pair"><p class="muted">이 영화를 어떻게 느끼시나요?</p><div class="taste-movies taste-movies-single">' + card(choice.movie) + '</div></section>';
     Array.prototype.forEach.call(box.querySelectorAll('[data-rate]'), function (button) {
       button.onclick = function () {
         if (button.disabled) return;
