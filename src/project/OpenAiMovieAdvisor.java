@@ -5,6 +5,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,6 +66,30 @@ public final class OpenAiMovieAdvisor {
                 + "Write one concise Korean sentence explaining why these titles fit the request. "
                 + "Return only that sentence.";
         return responseText(prompt);
+    }
+
+    /** Returns a concise, Korean reason for every candidate shown in a random recommendation set. */
+    public Map<Long, String> explainCandidates(List<Long> ids, List<String> titles) throws Exception {
+        StringBuilder candidates = new StringBuilder();
+        for (int i = 0; i < ids.size(); i++) {
+            candidates.append(ids.get(i)).append('|').append(titles.get(i)).append('\n');
+        }
+        String prompt = "These are curated movie candidates. For every line, write one concise Korean reason "
+                + "why a general viewer could enjoy it today. Return exactly one line per candidate as "
+                + "numeric_id|Korean reason. Do not omit any id.\n" + candidates;
+        Map<Long, String> reasons = new LinkedHashMap<>();
+        for (String line : responseText(prompt).split("\\r?\\n")) {
+            int divider = line.indexOf('|');
+            if (divider <= 0) continue;
+            try {
+                long id = Long.parseLong(line.substring(0, divider).trim());
+                String reason = line.substring(divider + 1).trim();
+                if (ids.contains(id) && !reason.isBlank()) reasons.put(id, reason);
+            } catch (NumberFormatException ignored) {
+                // Ignore a malformed line and use the local fallback below.
+            }
+        }
+        return reasons;
     }
 
     private String responseText(String input) throws Exception {

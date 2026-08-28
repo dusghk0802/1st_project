@@ -134,6 +134,22 @@ Table comments {
   updated_at timestamp [not null]
 }
 
+Table movie_comments {
+  movie_comment_id number [pk, increment]
+  movie_id number [not null]
+  author_id number [not null]
+  content clob [not null]
+  status varchar(20) [not null, note: 'PUBLISHED | HIDDEN | DELETED']
+  created_at timestamp [not null]
+  updated_at timestamp [not null]
+}
+
+Table movie_comment_likes {
+  movie_comment_id number [pk]
+  user_id number [pk]
+  created_at timestamp [not null]
+}
+
 Table notices {
   notice_id number [pk]
   title varchar(200) [not null]
@@ -181,4 +197,8 @@ Ref: post_views.user_id > users.user_id
 Ref: comments.post_id > posts.post_id
 Ref: comments.author_id > users.user_id
 Ref: comments.parent_comment_id > comments.comment_id
+Ref: movie_comments.movie_id > movies.movie_id
+Ref: movie_comments.author_id > users.user_id
+Ref: movie_comment_likes.movie_comment_id > movie_comments.movie_comment_id
+Ref: movie_comment_likes.user_id > users.user_id
 Ref: notifications.user_id > users.user_id
