@@ -724,3 +724,4 @@ body:not(.logged-in) a[href='/new-post']{display:none!important;}
 .entry-header.entry-header-style-2 h2{font-size:16px!important;margin:0!important;font-weight:400!important;}
 .main-header::after{content:"\C601\D654 \D0D0\C0C9 \CEE4\BBA4\B2C8\D2F0"!important;}
 .withdraw-button{margin-left:8px!important;background:#fff!important;color:#dc2626!important;border:1px solid #dc2626!important;}.withdraw-button:hover{background:#dc2626!important;color:#fff!important;}
+.balance-champion img{width:150px;height:215px;object-fit:cover;border-radius:8px;margin:12px auto 18px;box-shadow:0 8px 20px rgba(30,41,59,.18)}.balance-champion h2{margin:0 0 6px}.balance-champion .muted{margin:0 0 10px}@media(max-width:650px){.balance-champion img{width:120px;height:172px}}
