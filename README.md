@@ -83,13 +83,10 @@ flowchart LR
 
 ## ERD
 
-현재 ERD는 제공한 이미지와 같은 테이블 관계를 기준으로 작성했습니다. 전체 dbdiagram.io 코드 파일은 [ERD.dbml](docs/ERD.dbml)입니다.
 
 ![CINEHUB ERD](docs/erd.png)
 
-1. [dbdiagram.io](https://dbdiagram.io/)를 엽니다.
-2. [ERD.dbml](docs/ERD.dbml)의 전체 내용을 붙여 넣습니다.
-3. 배치를 조정한 뒤 PNG 또는 PDF로 내보냅니다.
+
 
 ```mermaid
 erDiagram
