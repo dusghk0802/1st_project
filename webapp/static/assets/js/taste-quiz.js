@@ -1,7 +1,7 @@
 function bindTasteQuiz() {
   var start = document.getElementById('tasteStartButton');
   if (!start) return;
-  var genres = [], current = 0, likes = [], dislikes = [];
+  var genres = [], current = 0, likes = [], dislikes = [], unknowns = [];
 
   function card(movie) {
     var poster = movie.poster
@@ -10,20 +10,22 @@ function bindTasteQuiz() {
     return '<article class="taste-movie">' + poster
       + '<h2>' + safe(movie.title) + '</h2><p class="muted">평점 ' + Number(movie.voteAverage || 0).toFixed(1) + '</p>'
       + '<div><button type="button" data-rate="like" data-id="' + movie.id + '">♥ 좋아요</button>'
-      + '<button type="button" data-rate="dislike" data-id="' + movie.id + '">싫어요</button></div></article>';
+      + '<button type="button" data-rate="dislike" data-id="' + movie.id + '">싫어요</button>'
+      + '<button type="button" data-rate="unknown" data-id="' + movie.id + '">잘 모르겠어요</button></div></article>';
   }
 
   function render() {
     var genre = genres[current], box = document.getElementById('tastePair'), progress = document.getElementById('tasteProgress');
     if (!genre) { progress.textContent = '선택 완료! GPT가 당신의 취향에 맞는 영화를 고르는 중입니다.'; box.innerHTML = ''; recommend(); return; }
     progress.textContent = (current + 1) + ' / ' + genres.length + ' · ' + genre.name + ' 장르';
-    box.innerHTML = '<section class="taste-pair"><h2>' + safe(genre.name) + '</h2><p class="muted">두 영화 모두 좋아요 또는 싫어요를 선택해 주세요.</p><div class="taste-movies">' + card(genre.movies[0]) + card(genre.movies[1]) + '</div></section>';
+    box.innerHTML = '<section class="taste-pair"><h2>' + safe(genre.name) + '</h2><p class="muted">두 영화 모두 좋아요, 싫어요, 잘 모르겠어요 중 하나를 선택해 주세요.</p><div class="taste-movies">' + card(genre.movies[0]) + card(genre.movies[1]) + '</div></section>';
     var selected = 0;
     Array.prototype.forEach.call(box.querySelectorAll('[data-rate]'), function (button) {
       button.onclick = function () {
         if (button.disabled) return;
         var id = Number(button.getAttribute('data-id'));
-        (button.getAttribute('data-rate') === 'like' ? likes : dislikes).push(id);
+        var rate = button.getAttribute('data-rate');
+        (rate === 'like' ? likes : rate === 'dislike' ? dislikes : unknowns).push(id);
         button.parentElement.querySelectorAll('button').forEach(function (item) { item.disabled = true; });
         button.classList.add('selected'); selected++;
         if (selected === 2) setTimeout(function () { current++; render(); }, 260);
@@ -34,7 +36,7 @@ function bindTasteQuiz() {
   function recommend() {
     fetch('/api/taste-quiz/recommend', {
       method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: 'likes=' + encodeURIComponent(likes.join(',')) + '&dislikes=' + encodeURIComponent(dislikes.join(','))
+      body: 'likes=' + encodeURIComponent(likes.join(',')) + '&dislikes=' + encodeURIComponent(dislikes.join(',')) + '&unknowns=' + encodeURIComponent(unknowns.join(','))
     }).then(function (response) { return response.json(); }).then(function (data) {
       var result = document.getElementById('tasteResult'), movie = (data.results || [])[0];
       result.style.display = 'block';
