@@ -160,6 +160,18 @@ powershell -ExecutionPolicy Bypass -File .\run.ps1 -OraclePassword "Oracle_비�
 - 선택을 반복해 최종 우승작을 정한 뒤 **비슷한 영화 찾기**를 누르면, 서버가 TMDB Similar Movies API를 호출해 유사 작품을 보여 줍니다.
 - TMDB 읽기 토큰은 브라우저에 노출하지 않고 `TMDB_READ_TOKEN` 환경 변수로 서버에만 설정합니다.
 
+## TMDB 장르별 영화 수집
+
+`project.TmdbUnfilledGenreImporter`는 TMDB 장르 목록을 Oracle과 비교해 아직 영화가 연결되지 않은 장르만 골라 장르당 100편을 저장합니다. 같은 TMDB ID는 `MERGE`로 갱신하고, `movie_genres` 연결도 중복 없이 추가하므로 재실행해도 안전합니다.
+
+```powershell
+# 미수집 장르만 100편씩 채우기
+java -cp "out;lib/*" project.TmdbUnfilledGenreImporter 100
+
+# 중간에 끊긴 장르를 목표 수량까지 이어서 채우기
+java -cp "out;lib/*" project.TmdbUnfilledGenreImporter 100 --resume
+```
+
 ## 프로젝트 구조
 
 ```text
