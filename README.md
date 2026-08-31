@@ -100,9 +100,7 @@ flowchart LR
 
 ![CINEHUB ERD](docs/erd.png)
 
-1. [dbdiagram.io](https://dbdiagram.io/)를 엽니다.
-2. [ERD.dbml](docs/ERD.dbml)의 전체 내용을 붙여 넣습니다.
-3. 배치를 조정한 뒤 PNG 또는 PDF로 내보냅니다.
+
 
 ```mermaid
 erDiagram
