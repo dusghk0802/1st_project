@@ -80,17 +80,41 @@ Spring Boot 없이 JDK `HttpServer`와 JDBC로 구현했습니다. Oracle XE가 
 
 ## 서비스 구조
 
-```mermaid
-flowchart LR
-    B[사용자 브라우저] -->|HTTP 8088| J[Java HttpServer<br/>CinehubServer]
-    J --> W[HTML · CSS · Vanilla JavaScript]
-    J --> S[세션 · CSRF · 권한 검사]
-    J --> O[(Oracle XE)]
-    J --> R[JavaRagService]
-    R -->|Embeddings API| A[OpenAI]
-    R -->|REST API| Q[(Qdrant)]
-    T[TMDB] -->|영화 수집| O
-```
+flowchart TD
+    subgraph Client ["Client Layer"]
+        Browser["User Web Browser<br/>(HTML5 / CSS3 / Vanilla JS)"]
+    end
+
+    subgraph Backend ["Application Layer (JDK HttpServer :8088)"]
+        direction TB
+        Server["CinehubServer<br/>(인증·세션·CSRF 검증 / 라우터)"]
+        CoreAPI["비즈니스 서비스 & DAO<br/>(회원 / 커뮤니티 / 관리자)"]
+        RAGService["JavaRagService<br/>(하이브리드 RAG & 추천 엔진)"]
+        Batch["TmdbUnfilledGenreImporter<br/>(장르별 영화 데이터 수집 배치)"]
+    end
+
+    subgraph Persistence ["Persistence Layer"]
+        Oracle[("Oracle XE (1521)<br/>회원·게시글·영화 메타데이터")]
+        Qdrant[("Qdrant Vector DB (6333)<br/>줄거리 고차원 벡터 컬렉션")]
+    end
+
+    subgraph External ["External Services"]
+        OpenAI["OpenAI API<br/>(Embeddings & GPT 추론)"]
+        TMDB["TMDB API<br/>(영화 메타데이터 & Similar Movies)"]
+    end
+
+    Browser <-->|HTTP / JSON (8088)| Server
+    Server --> CoreAPI
+    Server --> RAGService
+    
+    CoreAPI <-->|JDBC (ojdbc11)| Oracle
+    Batch -->|장르별 적재 & MERGE| Oracle
+    Batch -.->|REST API| TMDB
+    
+    RAGService <-->|키워드 후보 추출| Oracle
+    RAGService <-->|벡터 유사도 검색 (REST)| Qdrant
+    RAGService <-->|임베딩 & 추천 사유 생성| OpenAI
+    RAGService <-->|포스터·평점·상세 보강| TMDB
 
 자세한 구조와 RAG 검색 흐름은 [SERVICE_ARCHITECTURE.md](docs/SERVICE_ARCHITECTURE.md)를 확인하세요.
 
