@@ -103,17 +103,17 @@ flowchart TD
         TMDB["TMDB API<br>(영화 메타데이터 & Similar Movies)"]
     end
 
-    Browser -->|HTTP / JSON (8088)| Server
+    Browser -->|HTTP / JSON :8088| Server
     Server --> CoreAPI
     Server --> RAGService
 
-    CoreAPI -->|JDBC (ojdbc11)| Oracle
-    Batch -->|장르별 적재 & MERGE| Oracle
-    Batch -. REST API .-> TMDB
+    CoreAPI -->|JDBC ojdbc11| Oracle
+    Batch -->|장르별 적재 및 MERGE| Oracle
+    Batch -.->|REST API| TMDB
 
     RAGService -->|키워드 후보 추출| Oracle
     RAGService -->|벡터 유사도 검색| Qdrant
-    RAGService -->|임베딩 & 추천 사유 생성| OpenAI
+    RAGService -->|임베딩 및 추천 사유 생성| OpenAI
     RAGService -->|포스터·평점·상세 보강| TMDB
 ```
 
