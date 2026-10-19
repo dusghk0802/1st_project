@@ -817,3 +817,19 @@ h1,h2,h3,h4,h5,.widget-title{word-break:keep-all;overflow-wrap:anywhere;}
 #navLogout>a{--icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4H5v16h4'/%3E%3Cpath d='M14 8l4 4-4 4'/%3E%3Cpath d='M18 12H9'/%3E%3C/svg%3E");}
 body:not(.logged-in) .main-header .header-tools .list-inline-item>a[href='/new-post']{display:none!important;}
 }
+
+/* 게시글 페이지 번호: 가운데 정렬 + 5개씩 묶음 + 이전/다음 화살표 */
+.pagination{display:flex!important;justify-content:center!important;align-items:center;flex-wrap:wrap;gap:6px;margin:28px 0 8px!important;}
+.pagination button{min-width:36px;height:36px;padding:0 10px!important;margin:0!important;font-size:14px;line-height:34px;}
+.pagination button.active{background:var(--cine-accent)!important;border-color:var(--cine-accent)!important;color:#fff!important;font-weight:700;}
+.pagination .page-arrow{font-size:20px;line-height:32px;}
+.pagination .page-arrow:disabled{opacity:.35;cursor:default;pointer-events:none;}
+.pagination.pagination-top{display:none!important;}
+
+/* 푸터를 항상 화면 맨 아래에: 본문이 짧으면 main이 남은 높이를 채움 */
+body{min-height:100vh;display:flex;flex-direction:column;}
+body>*{flex-shrink:0;}
+body>main{flex:1 0 auto;width:100%;min-height:0!important;}
+/* 페이지마다 달랐던 푸터 높이 통일 */
+footer.main-footer.main-footer{padding:28px 0!important;}
+.main-footer p{margin:0!important;}
