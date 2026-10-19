@@ -6,8 +6,8 @@ final class AdminLogsPage {
 
     static String render() {
         return "<!doctype html><html lang='ko'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>관리 로그 | CINEHUB</title>"
-            + "<link rel='stylesheet' href='/static/assets/css/style.css'><link rel='stylesheet' href='/static/assets/css/widgets.css'><link rel='stylesheet' href='/static/assets/css/responsive.css'></head><body>"
-            + "<header class='main-header header-style-1'><div class='header-top'></div><div class='header-sticky'><div class='container align-self-center'><div class='main-nav'><nav><ul class='main-menu'><li><a href='/'>홈</a></li><li><a href='/movies'>영화 추천</a></li><li><a href='/posts'>게시글</a></li><li><a href='/admin'>관리자</a></li></ul></nav></div></div></div></header>"
+            + "<link rel='stylesheet' href='/static/assets/css/style.css'><script src='/static/assets/js/site-header.js' defer></script><link rel='stylesheet' href='/static/assets/css/widgets.css'><link rel='stylesheet' href='/static/assets/css/responsive.css'></head><body>"
+            + ""+CinehubServer.siteHeader()+""
             + "<main><div class='container admin-log-page'><a class='board-back' href='/admin'>← 관리자 대시보드</a><div class='widget-header-3'><h1 class='widget-title'>관리 로그</h1></div><div class='admin-search'><input id='logQuery' placeholder='사용자, 작업, 대상, IP로 검색'><button id='logSearch'>검색</button></div>"
             + "<section class='log-section'><h2>관리자 작업 기록</h2><div class='log-table-wrap'><table class='audit-table'><thead><tr><th>시간</th><th>관리자</th><th>작업</th><th>대상</th><th>사유</th><th>IP</th></tr></thead><tbody id='actions'></tbody></table></div><nav class='pagination' id='actionPaging'></nav></section>"
             + "<section class='log-section'><h2>로그인 기록</h2><div class='log-table-wrap'><table class='audit-table'><thead><tr><th>시간</th><th>사용자</th><th>상태</th><th>IP</th></tr></thead><tbody id='logins'></tbody></table></div><nav class='pagination' id='loginPaging'></nav></section></div></main>"

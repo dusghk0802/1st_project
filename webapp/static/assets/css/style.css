@@ -730,3 +730,90 @@ body:not(.logged-in) a[href='/new-post']{display:none!important;}
 .taste-quiz{max-width:980px;padding-top:42px;padding-bottom:60px}.taste-pair{background:#fff;border:1px solid var(--cine-line);border-radius:12px;padding:28px}.taste-pair>h2{text-align:center;margin:0 0 6px}.taste-pair>p{text-align:center}.taste-movies{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:22px}.taste-movie{border:1px solid var(--cine-line);border-radius:10px;padding:20px;text-align:center;background:#fff}.taste-movie img,.taste-poster-empty{width:150px;height:215px;object-fit:cover;display:block;margin:0 auto 14px;border-radius:7px}.taste-poster-empty{display:grid;place-items:center;background:#eef1f5;color:var(--cine-muted)}.taste-movie h2{font-size:18px;margin:0 0 5px}.taste-movie button{padding:9px 13px;margin:4px;border:1px solid var(--cine-line);border-radius:6px;background:#fff;cursor:pointer}.taste-movie button[data-rate='like']{color:#e94b7a}.taste-movie button[data-rate='dislike']{color:#64748b}.taste-movie button.selected{background:#e94b7a;color:#fff;border-color:#e94b7a}.taste-result-card{width:min(620px,100%);margin:30px auto!important;padding:28px!important;display:flex!important;gap:24px;align-items:center!important;background:#fff!important;border:1px solid var(--cine-line)!important;text-align:left}.taste-result-card img{width:150px;height:215px;object-fit:cover;border-radius:7px;float:none!important;flex:none}.taste-result-card h2{margin:6px 0 12px}@media(max-width:650px){.taste-pair{padding:18px}.taste-movies{grid-template-columns:1fr;gap:14px}.taste-result-card{flex-direction:column;text-align:center}.taste-result-card img{width:120px;height:172px}}
 .taste-movie button[data-rate='unknown']{color:#64748b;background:#f7f8fa}.taste-movie button[data-rate='unknown'].selected{background:#64748b;border-color:#64748b;color:#fff}
 .taste-movies-single{grid-template-columns:minmax(0,420px);justify-content:center}.taste-movies-single .taste-movie{width:100%}
+
+/* 메인 메뉴: 글자 바로 아래 빨간 밑줄 (마우스 올림 + 현재 페이지) */
+.main-header .main-nav ul li>a::after{bottom:calc(50% - 16px)!important;height:3px!important;background:#e53945!important;border-radius:2px;}
+.main-header .main-nav ul li.active>a::after{transform:translateX(-50%) scaleX(1)!important;}
+.main-header .main-nav ul li.active>a{color:#fff!important;font-weight:700;}
+
+/* 메뉴바 흔들림 방지: 스크롤바 유무로 가운데 정렬이 밀리지 않게 한다 */
+html{scrollbar-gutter:stable;}
+
+/* 홈 메인 배너 캐러셀 */
+.hero-carousel{position:relative;width:min(1100px,calc(100% - 22px));height:380px;margin:0 auto 25px;border-radius:14px;overflow:hidden;background:#000;box-shadow:0 12px 30px rgba(20,23,28,.18);}
+.hero-slide{position:absolute;inset:0;display:flex;align-items:flex-end;padding:48px;background-position:center;background-size:cover;opacity:0;visibility:hidden;transition:opacity .7s ease,visibility .7s;color:#fff;text-decoration:none;}
+.hero-slide.is-active{opacity:1;visibility:visible;}
+.hero-slide-intro{background-image:linear-gradient(90deg,rgba(0,0,0,.76) 0%,rgba(0,0,0,.42) 52%,rgba(0,0,0,.22) 100%),url('/static/assets/imgs/cinehub-hero-theater.png');}
+.hero-slide-movie::before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.25) 38%,rgba(0,0,0,0) 62%);pointer-events:none;}
+.hero-caption{position:relative;z-index:1;max-width:720px;}
+.hero-caption h1{margin:0 0 12px;color:#fff;font-size:34px;letter-spacing:-.5px;text-shadow:0 2px 14px rgba(0,0,0,.45);}
+.hero-caption h2{margin:0;color:rgba(255,255,255,.82);font-size:16px;font-weight:400;}
+.hero-label{display:inline-block;margin-bottom:10px;padding:3px 10px;border-radius:999px;background:#e53945;color:#fff;font-size:12px;font-weight:700;}
+.hero-more{color:rgba(255,255,255,.88);font-size:14px;}
+.hero-slide-movie:hover .hero-more{color:#fff;text-decoration:underline;}
+.hero-nav{position:absolute;top:50%;z-index:2;width:44px;height:44px;margin-top:-22px;border:0;border-radius:50%;background:rgba(0,0,0,.45);color:#fff;font-size:30px;line-height:40px;cursor:pointer;display:none;transition:background .2s;}
+.hero-nav:hover{background:rgba(229,57,69,.9);}
+.hero-prev{left:16px;}.hero-next{right:16px;}
+.hero-dots{position:absolute;right:24px;bottom:22px;z-index:2;display:none;gap:8px;}
+.hero-carousel.has-many .hero-nav{display:block;}
+.hero-carousel.has-many .hero-dots{display:flex;}
+.hero-dots button{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.5);cursor:pointer;transition:width .2s,background .2s;}
+.hero-dots button.is-active{width:24px;border-radius:5px;background:#e53945;}
+@media(max-width:767px){.hero-carousel{height:270px;}.hero-slide{padding:28px 28px 44px;}.hero-caption h1{font-size:24px;}.hero-nav{width:36px;height:36px;margin-top:-18px;font-size:24px;line-height:32px;}.hero-dots{right:50%;transform:translateX(50%);bottom:16px;}}
+
+/* 메인 배너: TMDB처럼 화면 양옆 끝까지 꽉 차게 (main의 좌우/상단 여백만큼 바깥으로 확장) */
+.hero-carousel{width:auto;height:clamp(220px,24vw,340px);margin:-42px -22px 30px;border-radius:0;box-shadow:none;}
+.hero-slide{padding:48px max(72px,calc((100% - 1100px) / 2 + 24px));}
+.hero-prev{left:max(12px,calc((100% - 1100px) / 2 - 56px));}.hero-next{right:max(12px,calc((100% - 1100px) / 2 - 56px));}
+.hero-dots{right:max(24px,calc((100% - 1100px) / 2 + 24px));}
+@media(max-width:767px){.hero-carousel{height:clamp(190px,52vw,250px);}.hero-slide{padding:24px 20px 46px;}.hero-dots{right:50%;}.hero-carousel.has-many .hero-nav{display:none;}}
+
+/* 좁은 화면 상단 메뉴바: 메뉴와 로그인 영역을 항상 한 줄로 고정.
+   메뉴가 다 들어가면 가운데 정렬, 넘치면 메뉴 부분만 가로로 밀어서 스크롤. 로그인 영역은 오른쪽에 고정 */
+@media(max-width:1099px){
+.main-header{height:151px!important;}
+.main-header .header-sticky{height:48px!important;}
+.main-header .header-sticky .container{width:calc(100% - 24px)!important;max-width:none!important;height:48px!important;padding:0!important;display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;align-items:center!important;gap:12px;}
+.main-header .main-nav{position:static!important;transform:none!important;float:none!important;flex:1 1 auto;min-width:0;width:auto!important;height:48px!important;margin:0!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.main-header .main-nav::-webkit-scrollbar{display:none;}
+.main-header .main-nav > nav{margin-left:auto!important;margin-right:auto!important;}
+.main-header .main-menu{width:max-content!important;margin:0!important;justify-content:flex-start!important;flex-wrap:nowrap!important;white-space:nowrap;height:48px!important;}
+.main-header .main-menu>li{height:auto!important;}
+.main-header .main-nav ul li>a{display:inline-block;line-height:48px!important;padding:0!important;height:48px!important;}
+.main-header .header-tools{position:static!important;transform:none!important;float:none!important;flex:none;margin:0!important;height:48px!important;line-height:48px!important;white-space:nowrap;}
+.main-header .header-tools ul,.main-header .header-tools li,.main-header .header-tools a{height:auto!important;line-height:48px!important;white-space:nowrap;}
+}
+/* 폰: 메뉴 오른쪽 끝을 흐리게 해서 옆으로 밀면 더 있다는 걸 알려 줌 */
+@media(max-width:575px){.main-header .main-nav{-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent);}}
+@media(max-width:767px){
+.main-header .main-menu>li{padding:0 9px!important;}
+.main-header .header-tools .list-inline-item{margin-left:8px!important;}
+.main-header .header-sticky .container{gap:8px;}
+}
+
+/* 모바일 본문 여백: 화면이 좁을 때 좌우 여백이 3중으로 쌓여 내용이 좁아지던 문제 정리 */
+@media(max-width:767px){
+main{padding:24px 12px 48px!important;}
+main > .container{padding-left:0!important;padding-right:0!important;}
+.hot-tags,.loop-grid{margin-left:0!important;margin-right:0!important;padding:20px!important;}
+.widget-header-3 .widget-title{font-size:20px!important;}
+.hero-carousel{margin:-24px -12px 24px;}
+main .hero{padding:24px 20px!important;}
+main .hero h1{font-size:26px!important;}
+}
+/* 한글 제목이 단어 중간에서 끊기지 않게 */
+h1,h2,h3,h4,h5,.widget-title{word-break:keep-all;overflow-wrap:anywhere;}
+
+/* 폰: 오른쪽 로그인 영역을 아이콘으로 줄여서 메뉴가 더 많이 보이게 (글자는 화면 읽기용으로 남겨 둠) */
+@media(max-width:575px){
+.main-header .header-tools .list-inline-item{margin-left:2px!important;}
+.main-header .header-tools .list-inline-item>a{display:inline-flex!important;align-items:center;justify-content:center;width:34px;height:34px!important;font-size:0!important;line-height:0!important;border-radius:50%;vertical-align:middle;}
+.main-header .header-tools .list-inline-item>a:hover{background:rgba(255,255,255,.12);}
+.main-header .header-tools .list-inline-item>a::before{content:"";width:20px;height:20px;background:currentColor;-webkit-mask:var(--icon) center/contain no-repeat;mask:var(--icon) center/contain no-repeat;}
+#navLogin>a{--icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4 3.6-6 8-6s8 2 8 6'/%3E%3C/svg%3E");}
+#navRegister>a{--icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='8' r='4'/%3E%3Cpath d='M3 21c0-4 3.1-6 7-6s7 2 7 6'/%3E%3Cpath d='M19 7v6M16 10h6'/%3E%3C/svg%3E");}
+.header-tools a[href='/new-post']{--icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h4L19 9l-4-4L4 16z'/%3E%3Cpath d='M13.5 6.5l4 4'/%3E%3C/svg%3E");}
+#navMyPage{--icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 21c0-4 3.6-6 8-6s8 2 8 6'/%3E%3C/svg%3E");}
+#navLogout>a{--icon:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4H5v16h4'/%3E%3Cpath d='M14 8l4 4-4 4'/%3E%3Cpath d='M18 12H9'/%3E%3C/svg%3E");}
+body:not(.logged-in) .main-header .header-tools .list-inline-item>a[href='/new-post']{display:none!important;}
+}
