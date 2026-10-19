@@ -1,4 +1,5 @@
 package project;
+import project.common.Env;
 
 import project.common.DBConnection;
 import java.net.URI;
@@ -41,5 +42,5 @@ public final class JavaRagService {
     private static String request(String method,String url,String body)throws Exception{HttpRequest req=HttpRequest.newBuilder(URI.create(url)).header("Content-Type","application/json").method(method,HttpRequest.BodyPublishers.ofString(body)).build();HttpResponse<String> response=HTTP.send(req,HttpResponse.BodyHandlers.ofString());if(response.statusCode()<200||response.statusCode()>=300)throw new IllegalStateException("Qdrant error "+response.statusCode()+": "+response.body());return response.body();}
     private static String join(String...parts){StringBuilder b=new StringBuilder();for(String p:parts)if(p!=null&&!p.isBlank())b.append(p).append('\n');return b.toString();}
     private static String json(String text){return text.replace("\\","\\\\").replace("\"","\\\"").replace("\n"," ").replace("\r"," ");}
-    private static String env(String key,String fallback){String value=System.getenv(key);return value==null||value.isBlank()?fallback:value;}
+    private static String env(String key,String fallback){String value=Env.get(key);return value==null||value.isBlank()?fallback:value;}
 }

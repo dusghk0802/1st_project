@@ -4,3 +4,5 @@ out/
 .env
 *.class
 lib/*.jar
+.idea/
+*.iml

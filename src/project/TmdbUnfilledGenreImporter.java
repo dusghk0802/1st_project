@@ -1,4 +1,5 @@
 package project;
+import project.common.Env;
 
 import project.common.DBConnection;
 import java.math.BigDecimal;
@@ -96,7 +97,7 @@ public final class TmdbUnfilledGenreImporter {
 
     private int count(int genreId) throws Exception { try (Connection c = DBConnection.getConnection(); PreparedStatement s = c.prepareStatement("SELECT COUNT(*) FROM movie_genres WHERE genre_id=?")) { s.setInt(1, genreId); try (ResultSet r = s.executeQuery()) { r.next(); return r.getInt(1); } } }
     private Object json(String path) throws Exception { String separator = path.contains("?") ? "&" : "?"; String url = "https://api.themoviedb.org/3" + path + (!apiKey.isBlank() ? separator + "api_key=" + URLEncoder.encode(apiKey, StandardCharsets.UTF_8) : ""); HttpRequest.Builder b = HttpRequest.newBuilder(URI.create(url)).header("Accept", "application/json").GET(); if (!readToken.isBlank()) b.header("Authorization", "Bearer " + readToken); HttpResponse<String> response = http.send(b.build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8)); if (response.statusCode() / 100 != 2) throw new IllegalStateException("TMDB HTTP " + response.statusCode()); return SimpleJson.parse(response.body()); }
-    private static String value(String key) { String property = System.getProperty(key); if (property != null && !property.isBlank()) return property.trim(); String environment = System.getenv(key); return environment == null ? "" : environment.trim(); }
+    private static String value(String key) { String property = System.getProperty(key); if (property != null && !property.isBlank()) return property.trim(); String environment = Env.get(key); return environment == null ? "" : environment.trim(); }
     @SuppressWarnings("unchecked") private static Map<String,Object> object(Object value) { return value instanceof Map ? (Map<String,Object>) value : Collections.emptyMap(); }
     @SuppressWarnings("unchecked") private static List<Object> list(Object value) { return value instanceof List ? (List<Object>) value : Collections.emptyList(); }
     private static String string(Object value) { return value == null ? "" : String.valueOf(value); }

@@ -1,4 +1,5 @@
 package project;
+import project.common.Env;
 import project.common.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +8,7 @@ import java.sql.ResultSet;
 /** Lists existing admins and creates one only when ADMIN_LOGIN/ADMIN_PASSWORD are supplied. */
 public final class AdminBootstrap {
     public static void main(String[] args) throws Exception {
-        String login=System.getenv("ADMIN_LOGIN"), password=System.getenv("ADMIN_PASSWORD");
+        String login=Env.get("ADMIN_LOGIN"), password=Env.get("ADMIN_PASSWORD");
         try(Connection c=DBConnection.getConnection()){
             if(login!=null&&!login.isBlank()&&password!=null&&!password.isBlank()){
                 try(PreparedStatement q=c.prepareStatement("SELECT COUNT(*) FROM users WHERE login_id=?")){q.setString(1,login);try(ResultSet r=q.executeQuery()){r.next();if(r.getInt(1)==0){try(PreparedStatement s=c.prepareStatement("INSERT INTO users(login_id,password_hash,nickname,email,role,status) VALUES(?,?,?,?, 'ADMIN','ACTIVE')")){s.setString(1,login);s.setString(2,password);s.setString(3,"관리자");s.setString(4,login+"@local.admin");s.executeUpdate();}}}}

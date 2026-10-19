@@ -1,4 +1,5 @@
 package project;
+import project.common.Env;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -51,5 +52,5 @@ public final class OracleSchemaSetup {
     }
     private static String identifier(String value) { if (!value.matches("[A-Za-z][A-Za-z0-9_$#]*")) throw new IllegalArgumentException("Invalid Oracle identifier"); return value; }
     private static String required(String key) { String value = value(key, ""); if (value.isBlank()) throw new IllegalArgumentException(key + " is required"); return value; }
-    private static String value(String key, String fallback) { String v = System.getProperty(key); if (v != null && !v.isBlank()) return v; v = System.getenv(key); return v == null || v.isBlank() ? fallback : v; }
+    private static String value(String key, String fallback) { String v = System.getProperty(key); if (v != null && !v.isBlank()) return v; v = Env.get(key); return v == null || v.isBlank() ? fallback : v; }
 }

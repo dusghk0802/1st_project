@@ -1,4 +1,5 @@
 package project;
+import project.common.Env;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -188,7 +189,7 @@ public final class OpenAiMovieAdvisor {
     }
 
     private static String env(String name, String fallback) {
-        String value = System.getenv(name);
+        String value = Env.get(name);
         return value == null || value.isBlank() ? fallback : value;
     }
 }

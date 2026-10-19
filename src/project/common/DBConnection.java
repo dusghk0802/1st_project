@@ -20,7 +20,7 @@ public final class DBConnection {
     private static String value(String key, String fallback) {
         String property = System.getProperty(key);
         if (property != null && !property.isBlank()) return property;
-        String environment = System.getenv(key);
+        String environment = Env.get(key);
         return environment == null || environment.isBlank() ? fallback : environment;
     }
 }

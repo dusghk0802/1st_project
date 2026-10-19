@@ -1,4 +1,5 @@
 package project;
+import project.common.Env;
 
 import java.net.URI;
 import java.net.URLEncoder;
@@ -86,7 +87,7 @@ final class TmdbSimilarClient {
     private static String value(String name) {
         String system = System.getProperty(name);
         if (system != null && !system.isBlank()) return system.trim();
-        String environment = System.getenv(name);
+        String environment = Env.get(name);
         return environment == null ? "" : environment.trim();
     }
 }
