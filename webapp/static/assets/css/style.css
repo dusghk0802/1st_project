@@ -898,3 +898,44 @@ main > .container > .hero{background:#fff;border:1px solid var(--cine-line);bord
 .taste-movie:hover{border-color:#e94b7a!important;box-shadow:0 10px 24px rgba(233,75,122,.16);transform:translateY(-2px);}
 .taste-movie img,.taste-poster-empty{border-radius:6px;}
 @media(max-width:650px){.taste-movie{min-height:0;}}
+
+/* 영화 좋아요 버튼 */
+.movie-like-button{display:inline-flex;align-items:center;gap:6px;margin:4px 0 14px;padding:8px 16px;border:1px solid #f0b8c6;border-radius:999px;background:#fff;color:#e94b7a;font-size:14px;font-weight:600;cursor:pointer;transition:.18s;}
+.movie-like-button:hover{background:#fff1f5;}
+.movie-like-button.liked{background:#e94b7a;border-color:#e94b7a;color:#fff;}
+.movie-like-button:disabled{opacity:.6;cursor:default;}
+.movie-like-heart{font-size:16px;line-height:1;}
+/* 마이페이지: 좋아요한 영화 포스터 목록 */
+.liked-movies{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:16px;margin-top:8px;}
+.liked-movie{display:block;color:var(--cine-text)!important;text-align:center;text-decoration:none!important;}
+.liked-movie img,.liked-movie-empty{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:8px;margin-bottom:8px;transition:transform .18s,box-shadow .18s;}
+.liked-movie-empty{display:grid;place-items:center;background:#eef1f5;color:var(--cine-muted);font-size:12px;}
+.liked-movie:hover img{transform:translateY(-2px);box-shadow:0 10px 22px rgba(20,23,28,.16);}
+.liked-movie b{display:block;font-size:14px;font-weight:600;line-height:1.35;word-break:keep-all;}
+.liked-movies > p{grid-column:1/-1;}
+@media(max-width:575px){.liked-movies{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}.liked-movie b{font-size:12px;}}
+
+/* 영화 상세: 예고편 버튼 */
+.movie-trailer-button{display:inline-flex;align-items:center;gap:6px;margin:4px 0 14px 8px;padding:8px 16px;border:1px solid var(--cine-dark);border-radius:999px;background:var(--cine-dark);color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:.18s;}
+.movie-trailer-button:hover{background:#e53945;border-color:#e53945;}
+.movie-trailer-button[hidden]{display:none;}
+.movie-trailer-icon{font-size:12px;line-height:1;}
+/* 예고편 팝업 */
+.trailer-modal{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(0,0,0,.78);}
+.trailer-modal.open{display:flex;animation:trailerFade .18s ease;}
+.trailer-dialog{width:min(960px,100%);background:#0d0e10;border-radius:12px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.trailer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 18px;color:#fff;}
+.trailer-title{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.trailer-close{flex:none;width:36px;height:36px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:24px;line-height:34px;cursor:pointer;}
+.trailer-close:hover{background:#e53945;}
+.trailer-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;}
+.trailer-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+body.trailer-open{overflow:hidden;}
+@keyframes trailerFade{from{opacity:0}to{opacity:1}}
+@media(max-width:575px){.movie-trailer-button{margin-left:0;}.trailer-modal{padding:10px;}}
+.trailer-foot{padding:10px 18px;text-align:right;}
+.trailer-youtube{color:rgba(255,255,255,.7)!important;font-size:13px;text-decoration:none!important;}
+.trailer-youtube:hover{color:#fff!important;text-decoration:underline!important;}
+/* 예고편 버튼: 문구 없이 재생 아이콘만 (동그란 버튼) */
+.movie-trailer-button{justify-content:center;width:40px;height:40px;padding:0 0 0 3px;vertical-align:top;}
+.movie-trailer-icon{font-size:14px;}

@@ -97,6 +97,7 @@ public final class StaticSiteExporter {
         for (Long id : movieIds) {
             saveJson("/api/movies/" + id);
             saveJson("/api/movies/" + id + "/comments");
+            saveJson("/api/movies/" + id + "/trailer");
             String comments = saveJson("/api/movies/" + id + "/comments?page=1");
             int total = intOf(comments, "totalPages");
             for (int p = 2; p <= total; p++) saveJson("/api/movies/" + id + "/comments?page=" + p);

@@ -36,6 +36,39 @@ final class TmdbSimilarClient {
         return response.body();
     }
 
+    /** YouTube 예고편 하나를 고른다: 한국어 → 영어 순서로 찾고, 공식 Trailer → Trailer → Teaser 순으로 우선. 없으면 "" */
+    String trailer(long tmdbMovieId) throws Exception {
+        for (String language : new String[]{"ko-KR", "en-US"}) {
+            String url = "https://api.themoviedb.org/3/movie/" + tmdbMovieId + "/videos?language=" + URLEncoder.encode(language, StandardCharsets.UTF_8);
+            String apiKey = readApiKey();
+            if (!apiKey.isBlank()) url += "&api_key=" + URLEncoder.encode(apiKey, StandardCharsets.UTF_8);
+            HttpRequest.Builder request = HttpRequest.newBuilder(URI.create(url)).timeout(Duration.ofSeconds(20)).header("Accept", "application/json");
+            String token = readToken();
+            if (!token.isBlank()) request.header("Authorization", "Bearer " + token);
+            HttpResponse<String> response = client.send(request.GET().build(), HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
+            if (response.statusCode() < 200 || response.statusCode() >= 300) continue;
+            Object parsed = SimpleJson.parse(response.body());
+            if (!(parsed instanceof Map)) continue;
+            Object raw = ((Map<?, ?>) parsed).get("results");
+            if (!(raw instanceof List)) continue;
+            Map<?, ?> best = null;
+            int bestScore = -1;
+            for (Object item : (List<?>) raw) {
+                if (!(item instanceof Map)) continue;
+                Map<?, ?> video = (Map<?, ?>) item;
+                if (!"YouTube".equals(string(video.get("site"))) || string(video.get("key")).isBlank()) continue;
+                String type = string(video.get("type"));
+                int score = "Trailer".equals(type) ? 2 : "Teaser".equals(type) ? 1 : 0;
+                if (score > 0 && Boolean.TRUE.equals(video.get("official"))) score += 2;
+                if (score > bestScore) { best = video; bestScore = score; }
+            }
+            if (best != null && bestScore > 0) {
+                return "{\"key\":\"" + json(string(best.get("key"))) + "\",\"name\":\"" + json(string(best.get("name"))) + "\"}";
+            }
+        }
+        return "";
+    }
+
     /** Finds a GPT-selected movie in TMDB and returns the first result with public display metadata. */
     String searchMovie(String title) throws Exception {
         String url = "https://api.themoviedb.org/3/search/movie?language="
