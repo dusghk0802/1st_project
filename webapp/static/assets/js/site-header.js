@@ -46,8 +46,25 @@
         if (u.role === 'ADMIN') show('navAdmin', 'list-item');
     }
 
+    // 닉네임 버튼: 누르면 마이페이지·로그아웃 드롭다운을 열고 닫는다
+    function bindUserMenu() {
+        var menu = byId('navUser'), toggle = byId('navMyPage');
+        if (!menu || !toggle) return;
+        toggle.setAttribute('role', 'button');
+        toggle.setAttribute('aria-haspopup', 'true');
+        toggle.setAttribute('aria-expanded', 'false');
+        function setOpen(open) {
+            menu.classList.toggle('open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+        toggle.addEventListener('click', function (e) { e.preventDefault(); setOpen(!menu.classList.contains('open')); });
+        document.addEventListener('click', function (e) { if (!menu.contains(e.target)) setOpen(false); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    }
+
     function init() {
         markActive();
+        bindUserMenu();
         fetch('/api/me').then(function (r) { return r.ok ? r.json() : null; }).then(applySession).catch(function () { });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();

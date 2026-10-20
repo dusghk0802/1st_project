@@ -42,7 +42,7 @@
         slide.className = 'hero-slide hero-slide-movie';
         slide.href = '/movies/' + movie.id;
         slide.style.backgroundImage = "url('" + IMAGE_BASE + movie.backdrop + "')";
-        slide.innerHTML = "<div class='hero-caption'><span class='hero-label'>지금 인기 있는 영화</span><h1>" + escapeHtml(movie.title) + "</h1><span class='hero-more'>자세히 보기 &rsaquo;</span></div>";
+        slide.innerHTML = "<div class='hero-caption'><span class='hero-label'>HOT</span><h1>" + escapeHtml(movie.title) + "</h1></div>";
         root.insertBefore(slide, root.querySelector('.hero-prev'));
         slides.push(slide);
     }
