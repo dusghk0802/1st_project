@@ -939,3 +939,22 @@ body.trailer-open{overflow:hidden;}
 /* 예고편 버튼: 문구 없이 재생 아이콘만 (동그란 버튼) */
 .movie-trailer-button{justify-content:center;width:40px;height:40px;padding:0 0 0 3px;vertical-align:top;}
 .movie-trailer-icon{font-size:14px;}
+
+/* 알림: 메뉴바 읽지 않은 알림 배지 */
+#navNotifications > a{position:relative;}
+.nav-badge{display:inline-block;min-width:18px;height:18px;margin-left:4px;padding:0 5px;border-radius:9px;background:#e53945;color:#fff;font-size:11px!important;font-weight:700;line-height:18px!important;text-align:center;vertical-align:middle;box-sizing:border-box;}
+@media(max-width:575px){.main-header .header-tools #navNotifications > a .nav-badge{position:absolute;top:2px;right:0;margin:0;min-width:16px;height:16px;padding:0 4px;font-size:10px!important;line-height:16px!important;}}
+/* 알림 센터 */
+.notification-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;}
+.notification-head h1{margin:4px 0 6px;}
+.notification-head .btn-main{flex:none;}
+.notification-head .btn-main:disabled{opacity:.45;cursor:default;}
+.notification-list{display:flex;flex-direction:column;gap:10px;}
+.notification-item{display:block;padding:16px 18px;border:1px solid var(--cine-line);border-radius:10px;background:#fff;color:var(--cine-text)!important;text-decoration:none!important;transition:.15s;}
+.notification-item:hover{border-color:#e94b7a;box-shadow:0 6px 16px rgba(233,75,122,.12);}
+.notification-item.unread{background:#fff5f7;border-color:#f3c1cf;}
+.notification-item p{margin:6px 0 4px;}
+.notification-type{font-size:13px;font-weight:700;color:#e94b7a;}
+.notification-item:not(.unread) .notification-type{color:var(--cine-muted);}
+.notification-empty{padding:30px 0;text-align:center;}
+@media(max-width:575px){.notification-head{flex-direction:column;}}

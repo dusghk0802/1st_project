@@ -48,6 +48,15 @@
         show('navNotifications', 'list-item');
         if (byId('navMyPage')) byId('navMyPage').textContent = u.nickname + '님';
         if (u.role === 'ADMIN') show('navAdmin', 'list-item');
+        // 읽지 않은 알림 수 배지 (서버가 그린 값을 최신으로 맞춤)
+        fetch('/api/notifications/count').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+            if (!d) return;
+            var a = document.querySelector('#navNotifications > a');
+            if (!a) return;
+            var b = a.querySelector('.nav-badge');
+            if (d.unread > 0) { if (!b) { b = document.createElement('span'); b.className = 'nav-badge'; a.appendChild(b); } b.textContent = d.unread > 99 ? '99+' : d.unread; }
+            else if (b) b.remove();
+        }).catch(function () { });
     }
 
     // 닉네임 버튼: 누르면 마이페이지·로그아웃 드롭다운을 열고 닫는다

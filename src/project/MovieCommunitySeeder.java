@@ -110,6 +110,7 @@ public final class MovieCommunitySeeder {
         }
         if (count(c, "SELECT COUNT(*) FROM posts p JOIN users u ON u.user_id=p.author_id WHERE u.login_id LIKE 'demo\\_%' ESCAPE '\\'") > 0) {
             System.out.println("이미 자유게시판 데모 글이 있습니다. 다시 만들려면 --clean으로 지운 뒤 실행하세요.");
+            System.out.println("댓글 알림 보충: " + backfillCommentNotifications(c) + "개");
             return;
         }
         ensureUsers(c);
@@ -141,6 +142,7 @@ public final class MovieCommunitySeeder {
         }
 
         System.out.println("자유게시판 데모 글 " + (TEMPLATE_POSTS + EXAMPLES.length) + "개 생성 완료 (예시 " + EXAMPLES.length + "개는 목록 맨 위)");
+        System.out.println("댓글 알림 생성: " + backfillCommentNotifications(c) + "개");
         try (Statement s = c.createStatement(); ResultSet r = s.executeQuery("SELECT b.name, COUNT(p.post_id) FROM boards b LEFT JOIN posts p ON p.board_id=b.board_id GROUP BY b.name, b.sort_order ORDER BY b.sort_order")) {
             while (r.next()) System.out.println("  " + r.getString(1) + ": " + r.getInt(2) + "개");
         }
@@ -159,6 +161,19 @@ public final class MovieCommunitySeeder {
             s.executeUpdate("DELETE FROM posts WHERE author_id IN (" + demoUsers + ")");
             int removedUsers = s.executeUpdate("DELETE FROM users WHERE login_id LIKE 'demo\\_%' ESCAPE '\\'");
             System.out.println("데모 데이터 삭제 완료: 글 " + posts + "개, 데모 회원 " + removedUsers + "명 (댓글·좋아요 포함)");
+        }
+    }
+
+    /** 데모 댓글에 맞는 "새 댓글" 알림을 글쓴이에게 만든다. 이미 있으면 건너뛰고, 3일보다 오래된 알림은 읽음으로 둔다. */
+    private static int backfillCommentNotifications(Connection c) throws SQLException {
+        try (Statement s = c.createStatement()) {
+            return s.executeUpdate("INSERT INTO notifications(user_id,type,message,link,is_read,created_at) "
+                + "SELECT p.author_id, 'COMMENT', u.nickname || '님이 댓글을 남겼습니다.', '/post/' || p.post_id, "
+                + "CASE WHEN c.created_at < SYSTIMESTAMP - INTERVAL '3' DAY THEN 'Y' ELSE 'N' END, c.created_at "
+                + "FROM comments c JOIN posts p ON p.post_id = c.post_id JOIN users u ON u.user_id = c.author_id "
+                + "WHERE p.author_id <> c.author_id AND u.login_id LIKE 'demo\\_%' ESCAPE '\\' "
+                + "AND NOT EXISTS (SELECT 1 FROM notifications n WHERE n.user_id = p.author_id AND n.type = 'COMMENT' "
+                + "AND n.link = '/post/' || p.post_id AND n.created_at = c.created_at)");
         }
     }
 
