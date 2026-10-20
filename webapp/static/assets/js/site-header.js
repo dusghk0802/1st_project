@@ -15,12 +15,16 @@
         };
     }
 
+    // GitHub Pages 시연용 페이지처럼 사이트가 /저장소이름/ 아래에 있을 때 그 앞부분을 떼고 비교한다
+    var base = window.__CINEHUB_BASE || '/';
+    function stripBase(p) { return base !== '/' && p.indexOf(base) === 0 ? '/' + p.slice(base.length) : p; }
+
     function markActive() {
-        var path = location.pathname;
+        var path = stripBase(location.pathname);
         Object.keys(aliases).forEach(function (prefix) { if (path.indexOf(prefix) === 0) path = aliases[prefix]; });
         var best = null, bestLength = -1;
         document.querySelectorAll('.main-menu > li > a').forEach(function (link) {
-            var href = link.getAttribute('href');
+            var href = stripBase(link.getAttribute('href'));
             var match = href === '/' ? path === '/' : path === href || path.indexOf(href + '/') === 0;
             if (match && href.length > bestLength) { best = link; bestLength = href.length; }
         });
