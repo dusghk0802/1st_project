@@ -95,7 +95,7 @@ public final class OpenAiMovieAdvisor {
     public Recommendation chooseFromDetailedCandidates(String request, List<Long> ids, List<String> titles, List<String> overviews) throws Exception {
         StringBuilder candidates = new StringBuilder();
         for (int i = 0; i < ids.size(); i++) {
-            String overview = i < overviews.size() ? overviews.get(i) : "";
+            String overview = i < overviews.size() && overviews.get(i) != null ? overviews.get(i) : "";
             if (overview.length() > 350) overview = overview.substring(0, 350);
             candidates.append(ids.get(i)).append('|').append(titles.get(i)).append(" | 줄거리: ").append(overview).append('\n');
         }
